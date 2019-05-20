@@ -1,0 +1,47 @@
+#端口号
+server:
+  port: 8070
+#加载debug  
+log:
+  level: DEBUG
+  
+spring:
+  #数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/campus?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    username: root
+    password: data
+    driverClassName: com.mysql.cj.jdbc.Driver
+    
+  #模板引擎 
+  freemarker:
+    #关闭缓存
+    cache: false
+    request-context-attribute: request
+    #模板加载的位置
+    template-loader-path: classpath:/templates
+    
+  jpa:
+    # 默认false，在日志里显示执行的sql语句
+    show-sql: true
+    database: mysql
+    #指定为update，每次启动项目检测表结构有变化的时候会新增字段，表不存在时会新建，如果指定create，则每次启动项目都会清空数据并删除表，再新建
+    hibernate:
+         ddl-auto: update
+    #properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    #hibernate:
+      #naming:
+        #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        #指定jpa的自动表生成策略，驼峰自动映射为下划线格式
+        #implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    
+    
+mybatis:
+  #实体类所做包;别名配置
+  type-aliases-package: com.campus.model
+  #mapper.xml所在位置
+  mapper-locations: classpath:mappers/*.xml
+  #驼峰命名规则开启
+  configuration:
+    map-underscore-to-camel-case: true

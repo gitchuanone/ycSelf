@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="no-js h-100" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shards Dashboard Lite - Free Bootstrap Admin Template – DesignRevision</title>
+    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <link th:href="@{/css/bootstrap/jquery.dataTables.min.css}" href="../static/css/bootstrap/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0"  th:href="@{/css/styles/shards-dashboards.1.1.0.min.css}"  href="../static/css/styles/shards-dashboards.1.1.0.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles/extras.1.1.0.min.css}" href="../static/css/styles/extras.1.1.0.min.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+  <script  th:inline="javascript">
+    var user = [[${session.user}]];
+	if(user== null){ 
+		var pathArray = window.location.href.split("/");
+		var url = pathArray[0]+"//"+pathArray[2];
+		window.location.href = url; 
+		// https://localhost:8080/
+	}
+  </script>
+  <body class="h-100">
+	<input style="display:none"  id="getUserLevel"  th:value="@{session.user.userLevel}"></input>  
+    <div class="container-fluid">
+      <div class="row">
+       						 <!-- 引入左边菜单栏 -->
+		<div th:replace="common/extract-leftmenu :: extract-leftmenu"></div>	
+        
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        
+          					 <!-- 引入右上的头部栏 -->
+          <div th:replace="common/extract-top :: extract-top"></div>
+          
+          <!-- / .main-navbar -->
+          <div class="main-content-container container-fluid px-4">
+            <!-- 页面顶部标题栏 -->
+           <div class="page-header row no-gutters py-4"  >
+              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <span class="text-uppercase page-subtitle">NEVER</span>
+                <h3 class="page-title">活动审核</h3>
+              </div>
+            </div>
+            
+            	<!-- 审核自家学院的活动申请 -->
+           		<div class="page-header row no-gutters py-4">
+	             <!--  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+	              </div> -->
+	                <h2 class="page-title" align="left">审核表</h2>
+	            </div>
+                <div class="row" style="background:#FFF" >
+	           			<table id="activity-check-going" class="table table-bordered table-striped"  width="100%" align="left"> 
+		              		<thead>
+		              			<tr>
+		              			<td>主题</td>
+		              			<td>学院</td>
+		              			<td>负责人</td>
+		              			<td>地址</td>
+		              			<td>预计时间</td>
+		              			<td>预参与人数</td>
+		              			<td>操作</td>
+		              			</tr>
+		              		</thead>
+	             		</table>
+	            </div>
+            
+            	<!-- 权限达到等级,可以操作用户权限 -->
+            	<div  id="user-info-manage-div"  > <!-- style="display:none"  -->
+            	<span class="text-uppercase page-subtitle">用户管理</span>&nbsp;&nbsp;&nbsp;
+	           	    <button type="button" class="btn btn-accent"  id="reset-userscore-zero">重置所用用户信用得分</button>
+	            <div class="row" style="background:#FFF"  > <!-- style="display:none" -->
+	           			<table id="user-info-manage" class="table table-bordered table-striped"  width="100%" align="left"> 
+		              		<thead>
+		              			<tr>
+		              			<td>账户</td>
+		              			<td>昵称</td>
+		              			<td>学院</td>
+		              			<td>信用得分</td>
+		              			<td>等级</td>
+		              			<td>注册时间</td>
+		              			<td>操作</td>
+		              			</tr>
+		              		</thead>
+	             		</table>
+	            </div>
+            </div>
+            
+            
+            
+            <div class="row">
+            <!--    
+              <div class="col-lg-3 col-md-12">
+                <div class='card card-small mb-3'>
+                  <div class="card-header border-bottom">
+                    <h6 class="m-0">Categories</h6>
+                  </div>
+                  <div class='card-body p-0'>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item px-3 pb-2">
+                        <div class="custom-control custom-checkbox mb-1">
+                          <input type="checkbox" class="custom-control-input" id="category1" checked>
+                          <label class="custom-control-label" for="category1">Uncategorized</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mb-1">
+                          <input type="checkbox" class="custom-control-input" id="category2" checked>
+                          <label class="custom-control-label" for="category2">Design</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mb-1">
+                          <input type="checkbox" class="custom-control-input" id="category3">
+                          <label class="custom-control-label" for="category3">Development</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mb-1">
+                          <input type="checkbox" class="custom-control-input" id="category4">
+                          <label class="custom-control-label" for="category4">Writing</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mb-1">
+                          <input type="checkbox" class="custom-control-input" id="category5">
+                          <label class="custom-control-label" for="category5">Books</label>
+                        </div>
+                      </li>
+                      <li class="list-group-item d-flex px-3">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="New category" aria-label="Add new category" aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                            <button class="btn btn-white px-2" type="button">
+                              <i class="material-icons">add</i>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+               -->
+            </div>
+             <!-- / .main-navbar-end -->
+            
+            
+          </div>
+          
+          
+          							<!-- 页面右边最下面的角标行 -->
+          <footer th:replace="common/extract-rightend :: extract-rightend"></footer>		
+          		
+          
+        </main>
+      </div>
+    </div>
+    
+    
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
+
+<script th:src="@{/scripts/extras.1.1.0.min.js}" src="../static/scripts/extras.1.1.0.min.js"></script>
+<script th:src="@{/scripts/shards-dashboards.1.1.0.min.js}" src="../static/scripts/shards-dashboards.1.1.0.min.js"></script>
+<script th:src="@{/js/query/jquery.dataTables.min.js}" src="../static/js/query/jquery.dataTables.min.js"></script>
+
+
+<script th:src="@{/js/activity-check.js}" src="../static/js/activity-check.js"></script>
+  
+  
+  </body>
+</html>

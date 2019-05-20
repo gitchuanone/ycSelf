@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.campus.dao.UserDao">
+	<!-- 测试手动注入数据 -->   
+    <insert id="manualSaveNewUserInfo" parameterType="String">
+       insert into user(user_name,user_password,user_nickname,user_college,user_score,user_level,user_foundtime) 
+       				values(#{userName},#{userPwd},#{userNickname},#{userCollege},'0','0',now())
+    </insert> 
+	
+	<!-- 查询所有 -->
+    <select id="showAllUser"  resultType="User">
+    	select  *  from user  where user_level !=3
+    </select>
+    
+    <!-- 根据传入的账户密码查询用户 -->
+    <select id="showUserByNamePwd" parameterType="String" resultType="User">
+    	 select  *  from user  where  user_name=#{userName}  and  user_password=#{userPwd}
+    </select>
+    
+    <!-- 根据用户名查询用户信息 -->
+    <select id="showUserByUsername" parameterType="String" resultType="User">
+    	select * from user where user_name=#{userName}
+    </select>
+    
+    <!-- 插入数据 -->   
+    <insert id="saveNewUserInfo" parameterType="String">
+       insert into user(user_name,user_password,user_nickname,user_score,user_level,user_foundtime) values(#{userName},#{userPwd},#{userNickname},'0','0',now())
+    </insert>  
+      
+     <!-- 根据查询用户账号是否存在 -->
+     <select id="findUserIsexitByUsername"  parameterType="String" resultType="Integer">
+      	SELECT user_id from user where user_name=#{userName}
+     </select>
+     
+     <!-- 用户信息修改 -->  
+      <select id="modifyUserInfoByUsername" >
+      	update user set user_nickname=#{userNickname},user_age=#{userAge},user_sex=#{userSex},user_college=#{userCollege},user_description=#{userDescription},user_password=#{userPassword}  where user_name=#{userName}
+      </select> 
+		<!-- ===================================================================== -->
+		<!-- #重置所有用户的信用得分 -->
+		<update id="resetAllUserscoreZero" >
+			update  user set user_score=0 
+		</update>
+		
+      <!-- #提升用户等级 -->
+      <update id="riseUserlevel"  parameterType="Integer">
+			update user set user_level=(user_level+1)  where user_id=#{UserId}
+      </update>
+      
+        <!-- #降低用户等级 -->
+      <update id="downUserLevel"  parameterType="Integer">
+			update user set user_level=(user_level-1)  where user_id=#{UserId}
+      </update>
+</mapper>

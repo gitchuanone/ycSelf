@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- 按钮button -->
+ <button type="button" class="btn btn-accent"  data-toggle="modal"  id="update-mymodal-click">修改</button>
+
+
+		<form  id="userInfoUpdate" >
+                            <div class="form-row">
+                              	<div class="form-group col-md-6">
+	                                <label for="feFirstName">账户</label>
+	                                <input type="text" disabled="disabled"  class="form-control" id="feFirstName" placeholder="First Name" th:value="${session.user.userName}"> 
+                               </div>
+                              <div class="form-group col-md-6">
+	                                <label for="feLastName">昵称</label>
+	                                <input type="text" class="form-control" id="feLastName" placeholder="Last Name" th:value="${session.user.userNickname}"> 
+	                          </div>
+                            </div>
+                            <div class="form-row">
+	                              <div class="form-group col-md-6">
+	                                <label for="feEmailAddress">性别</label>  &nbsp;&nbsp;
+	                                <!-- <input type="email" class="form-control" id="feEmailAddress" placeholder="Email" value="sierra@example.com"> -->
+	                                <select name=""  id="select-sex"> 
+										<option value="男">男</option> 
+										<option value="女">女</option> 
+									</select>  
+	                              </div>
+	                              <div class="form-group col-md-6">
+	                                <label for="fePassword">年龄</label> &nbsp;&nbsp;
+	                                <!-- <input type="password" class="form-control" id="fePassword" placeholder="Password"> -->
+	                                <select name=""  id="select-age"  size=5>  </select>
+	                              </div>
+                            </div>
+                            <div class="form-group">
+	                              <!-- <label for="feInputAddress">学院</label> -->
+	                              <!-- <input type="text" class="form-control" id="feInputAddress" placeholder="1234 Main St"> </div> -->
+	                              <select name=""  id="select-college">== 请选择学院 == </select>
+                            <div class="form-row">
+	                              <div class="form-group col-md-6">
+	                                <label for="feInputCity">City</label>
+	                                <input type="text" class="form-control" id="feInputCity"> </div>
+	                              <div class="form-group col-md-4">
+	                                <label for="feInputState">State</label>
+	                                <select id="feInputState" class="form-control">
+	                                  <option selected>Choose...</option>
+	                                  <option>...</option>
+	                                </select>
+	                              </div>
+	                              <div class="form-group col-md-2">
+	                                <label for="inputZip">Zip</label>
+	                                <input type="text" class="form-control" id="inputZip"> </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-12">
+                                <label for="feDescription">Description</label>
+                                <textarea class="form-control" name="feDescription" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
+                              </div>
+                            </div>
+                            <button type="submit" class="btn btn-accent">修改</button>
+                          </form>
+   
+   
+   
+                          
+		
+	
+</body>
+</html>

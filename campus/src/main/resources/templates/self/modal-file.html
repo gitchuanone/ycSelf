@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+$("#update-mymodal-click").on("click",function(){//会执行,但是只是绑定点击事件
+		selectAge();
+		$("#my-modal-update").modal("show");
+	}); 
+-->
+
+ 										<!-- 模态框 -->
+		<div aria-labelledby="myModalLabel" class="modal fade bs-example-modal-lg" id="my-modal-update" role="dialog" >
+	        <div class="modal-dialog modal-lg" role="document">
+		            <div class="modal-content">
+		                <div class="modal-header">
+		                    <h4 class="modal-title" >用户信息修改</h4>  <!-- id="myModalLabel" -->
+		                </div>
+		                <div class="modal-body" id="modalBody">
+		                	<div class="form-group col-md-6">
+	                               <label for="userName">账户 :</label>
+	                               <input type="text"  name="userName" id="userName" disabled="disabled" class="form-control" th:value="${session.user.userName}"/> 
+                             </div>
+                             <div class="form-group col-md-6">
+                               	<label for="userCollege">学院 :</label>
+                               	<select id="userCollege" name="userCollege" onmouseover="openSelect(this)">
+                               		 <option th:each="college:${session.collegeList}" th:value="${college.collegeName}" th:text="${college.collegeName}"></option>
+						   		 </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="userDescription">描述 :</label>
+                               	<textarea class="form-control" name="userDescription"  maxlength="30"  id="userDescription" th:text="${session.user.userDescription}"></textarea>
+                               	<div id="noteDescription" class="note">
+						            <font color="#777">*字数最多为30字</font>
+						        </div>
+                            </div>
+		                </div>
+		                <div class="modal-footer">
+		                	<button class="btn btn-default" data-dismiss="modal" type="button"  id="update-userinfo-modalbuttom">确认</button>	
+		                    <button class="btn btn-default" data-dismiss="modal" type="button">取消</button>
+		                </div>
+		            </div>
+	        </div>
+      </div>
+
+
+
+</body>
+</html>

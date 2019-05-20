@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.campus.dao.ActivityDao">
+	
+	<!-- 查询所有活动信息,主题不为空 -->
+	<select id="showAllActivity" resultType="Activity">
+		select * from activity  where activity_theme!=''
+	</select>
+	
+	<!-- 得到总的记录数 -->
+	<select id="getTotal"  resultType="int" >
+		select count(1) from activity where 1=1
+		<if	test="activity_theme!=null ane activity_theme!='' ">
+			and activity_theme like concat('%',#{activityTheme},'%')
+		</if>
+	</select>
+	
+	<!-- #预估计时间大于当天,并且公布时间距离当前时刻小于72小时 -->
+	<select id="showPredtimeThanTodayProtimeLess3Day"  resultType="Activity"  >
+		select * from  activity where activity_theme!='' and  activity_predtime &gt; now() AND (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &gt; now()
+	</select>
+	 
+	 <!-- #当天日期超过公布日期2天且在3天内,审核状态公布出来 -->
+	 <select id="showCheckResultBy3day" resultType="Activity" >
+		select * from activity where (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &lt; now() and  (select DATE_ADD(activity_processtime,INTERVAL '5' day)) &gt; now()
+	 </select>
+	
+	<!-- #审核通过,活动进行时间在前2周内的活动展示出来 -->
+	<select id="showHoldResultLessThanDays"  resultType="Activity">
+		select * from activity where activity_endtime is not null and activity_applystatus=2 and (select DATE_ADD(activity_endtime,INTERVAL '14' day)) &gt; now()
+	</select>
+	
+	<!-- #当天超过公布日期3天,且未超过预计时间,且活动未提前进行,结果展示 -->
+	<select id="showCheckEndResultActivity"  resultType="Activity">  
+		select * from activity where  activity_endtime is null  and  activity_predtime &gt; now() and (select DATE_ADD(activity_processtime,INTERVAL  '3' day)) &lt; now()
+	</select>
+	
+	
+	<!-- #点击参加;用户参与预参与人数统计 -->
+	<update id="userClickApplyActivityCountPredjoin"  parameterType="Integer">
+		update activity set activity_predjoin=(activity_predjoin + #{clickCount}) where activity_id=#{activityId}
+	</update>
+	
+	
+	<!-- ==========================================申请===================================================== -->
+	
+	<!-- 预申请活动插入数据 
+	 activityTheme activityOrgcollege activityOrganizer activityDescription activityPredtime  activityUsername
+	-->
+	<insert id="applyAdvanceActivityByUsername" parameterType="Activity">
+		insert into activity(activity_theme,activity_orgcollege,activity_organizer,activity_description,activity_predtime,activity_username,activity_processtime)  
+		  values(#{activityTheme},#{activityOrgcollege},#{activityOrganizer},#{activityDescription},#{activityPredtime},#{activityUsername},now())  
+	</insert>
+	
+	<!-- 自己参与的预参与申请信息展示 -->
+	<select id="showSelfApplyAdvanceActivity"  parameterType="String"  resultType="Activity" >
+	select * from activity where activity_username=#{activityUsername}  and (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &gt; now()  
+	</select>
+	
+	<!-- #展示自己参与到的预参与申请活动信息 -->
+	<select id="showSelfApplyCheckActivity"  parameterType="String"  resultType="Activity">
+		select * from activity where  activity_username=#{activityUsername}  and  
+		     (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &lt; now() and   
+		         (select DATE_ADD(activity_processtime,INTERVAL '5' day)) &gt; now() 
+	</select>
+	
+	<!-- #根据活动id删除自己写的预参与活动信息 -->
+	<delete id="deleteSelfApplyAdvanceActicity"  parameterType="Integer"> 
+		delete from activity where activity_id=#{activityId}	
+	</delete>
+	
+	<!-- 修改自己写的预申请活动信息  -->
+	<update id="updateSelfApplyAdvanceActicity"  parameterType="Activity">
+		update activity set activity_theme=#{activityTheme},activity_orgcollege=#{activityOrgcollege},activity_description=#{activityDescription},activity_predtime=#{activityPredtime}
+		  where activity_id=#{activityId}
+	</update>
+	
+	
+	<!-- ===========================================审查=================================================== -->
+	
+	<!-- #审核员审查自己院里管理员申请的活动,结果集展示 -->
+	<select id="checkSelfCollegeApplyActivity"  resultType="Activity"  parameterType="String">
+		select * from  activity  where activity_username in (select user_name from user where user_level=1 and user_college=#{userCollege}) 
+		      and  activity_applystatus=1	
+	</select>
+	 <!-- #如果为超级管理员,可以查看所有的信息 -->
+	 <select id="checkAllApplyActivityUserlevel3"  resultType="Activity">
+			select * from activity where activity_applystatus=1
+	 </select>
+	   
+	  <!-- #s审核信息,同意 -->
+	  <update id="aggreActivityCheckGoing"  parameterType="Integer">
+		update activity set activity_applystatus=2  where activity_id=#{activityId}
+	  </update>
+	  
+	  <!-- #s审核信息,拒绝 -->
+	  <update id="refuseActivityCheckGoing"  parameterType="Integer">
+		update activity set activity_applystatus=0  where activity_id=#{activityId}
+	  </update>
+
+
+
+	   
+	   
+</mapper>

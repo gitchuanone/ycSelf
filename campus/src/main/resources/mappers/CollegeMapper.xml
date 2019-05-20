@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.campus.dao.CollegeDao">
+	
+	<!-- 查询所有的学院信息 -->
+	<select id="showAllCollege" resultType="College">
+		select * from  college
+	</select>
+       
+	<!-- 插入生成新的学院 -->	
+	<select id="saveNewCollegeInfo" parameterType="String">
+		insert into college(college_name,college_state)  values(#{collegeName},1)
+	</select>
+
+	<!-- 修改学院名称 -->
+	<select id="modifyCollegeName"  parameterType="String">
+		  
+	</select>
+	       
+</mapper>

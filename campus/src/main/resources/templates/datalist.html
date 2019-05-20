@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+<link th:href="@{/css/jquery.dataTables.min.css}" href="../static/css/bootstrap/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<table id="myTable">
+		<thead>
+			<!-- 文件头可以随意修改 -->
+			<tr>
+				<th>姓名</th>
+				<th>年龄</th>
+				<th>性别</th>
+				<th>学校</th>
+				<th>爱好</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+	<script th:src="@{/js/jquery-1.9.0.js}" src="../static/js/jquery-1.9.0.js"></script>
+	<script th:src="@{/js/jquery.dataTables.min.js}" src="../static/js/query/jquery.dataTables.min.js"></script>
+	<script th:src="@{/js/datalist.js}" src="../static/js/datalist.js"></script>
+</body>
+</html>
