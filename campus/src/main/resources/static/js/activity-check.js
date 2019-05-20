@@ -12,12 +12,11 @@ $(function(){
 		
 //		$("#user-info-manage-div").css({"display":"block"});
 		//重置所有用户的信用分
-		$("#reset-userscore-zero").on('click',function(){
-			$("#reset-userscore-zero").on('click',function(){
-				ensureResetUserscoreZero();
-//				location.replace(document.referrer);
-			});
-		});
+//		$("#reset-userscore-zero").on('click',function(){
+//			$("#reset-userscore-zero").on('click',function(){
+//				ensureResetUserscoreZero();
+//			});
+//		});
 	
 	
 });

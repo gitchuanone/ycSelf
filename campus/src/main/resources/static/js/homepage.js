@@ -64,15 +64,17 @@ $(function(){
 			        },
 			        {"data":'activityPredjoin'},
 			        {"data":'activityApplystatus',
-			        	render:function(data, type, row, meta){
-			        		if(data==0){
-			        			return "审核未通过";
+			        	render:function(data){
+			        		if(data==0 || data==""){
+			        			return "未申请";
 			        		}else if(data==1){
 			        			return "审核中";
 			        		}else if(data==2){
+			        			return "审核拒绝";
+			        		}else if(data==3){
 			        			return "审核通过";
 			        		}else{
-			        			return "系统出错了!";
+			        			return "系统错误";
 			        		}
 			        	}
 			        },
@@ -206,7 +208,8 @@ function  showPredJoinApplyActivity(){
 			        {"data":'activityPredjoin'},
 			        {"data":'activityId',
 			        	render:function(data){
-			        		return '<button type="button" class="btn btn-accent"  data-toggle="modal" onclick="userApplyPredJoin('+data+')">参加</button>';
+			        		return '<button type="button" class="btn btn-accent"  data-toggle="modal" onclick="userApplyPredJoin('+data+')">参加</button>'+
+			        		'&nbsp;&nbsp;<button type="button" class="btn btn-accent"  data-toggle="modal" onclick="userExitPredJoin('+data+')">退出</button>';
 			        	}
 			        },
 			    ]
@@ -215,12 +218,10 @@ function  showPredJoinApplyActivity(){
 };
 //用户点击参与活动预参与的人数统计
 function userApplyPredJoin(data){
-	var AAA=confirm("确定参加");
+	var AAA=confirm("确定参加?");
 	if(!AAA){ return ; };
-	var clickCountt=1;
 	var param={};
 	param.activityId=data;
-	param.clickCount=clickCountt;
 	$.ajax({
 		url: "/activity-apply/userApplyPredJoin",
 		data: param,
@@ -238,6 +239,31 @@ function userApplyPredJoin(data){
 	});
 		
 };
+
+//用户点击推迟活动预参与的人数统计
+function userExitPredJoin(data){
+	var AAA=confirm("确定退出?");
+	if(!AAA){ return ; };
+	var param={};
+	param.activityId=data;
+	$.ajax({
+		url: "/activity-apply/userExitPredJoin",
+		data: param,
+		type: "POST",
+		success: function(data){
+			if(data.status=="true"){
+				alert("操作成功!");
+				window.location.reload();
+			}
+			if(data.status=="error"){
+				alert(data.msg);
+			}
+		},
+		error: function(){ alert("操作失败"); },
+	});
+		
+};
+
 
 
 /*
@@ -297,15 +323,17 @@ function showCheckingApplyActivity(){
 			        },
 			        {"data":'activityPredjoin'},
 			        {"data":'activityApplystatus',
-			        	render:function(data, type, row, meta){
-			        		if(data==0){
-			        			return "审核未通过";
+			        	render:function(data){
+			        		if(data==0 || data==""){
+			        			return "未申请";
 			        		}else if(data==1){
 			        			return "审核中";
 			        		}else if(data==2){
+			        			return "审核拒绝";
+			        		}else if(data==3){
 			        			return "审核通过";
 			        		}else{
-			        			return "系统出错了!";
+			        			return "系统错误";
 			        		}
 			        	}
 			        },

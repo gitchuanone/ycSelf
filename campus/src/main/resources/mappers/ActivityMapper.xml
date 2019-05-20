@@ -48,8 +48,8 @@
 	 activityTheme activityOrgcollege activityOrganizer activityDescription activityPredtime  activityUsername
 	-->
 	<insert id="applyAdvanceActivityByUsername" parameterType="Activity">
-		insert into activity(activity_theme,activity_orgcollege,activity_organizer,activity_description,activity_predtime,activity_username,activity_processtime)  
-		  values(#{activityTheme},#{activityOrgcollege},#{activityOrganizer},#{activityDescription},#{activityPredtime},#{activityUsername},now())  
+		insert into activity(activity_theme,activity_orgcollege,activity_organizer,activity_description,activity_predtime,activity_username,activity_processtime,activity_predjoin,activity_realjoin)  
+		  values(#{activityTheme},#{activityOrgcollege},#{activityOrganizer},#{activityDescription},#{activityPredtime},#{activityUsername},now(),0,0)  
 	</insert>
 	
 	<!-- 自己参与的预参与申请信息展示 -->
@@ -90,16 +90,13 @@
 	   
 	  <!-- #s审核信息,同意 -->
 	  <update id="aggreActivityCheckGoing"  parameterType="Integer">
-		update activity set activity_applystatus=2  where activity_id=#{activityId}
+		update activity set activity_applystatus=3  where activity_id=#{activityId}
 	  </update>
 	  
 	  <!-- #s审核信息,拒绝 -->
 	  <update id="refuseActivityCheckGoing"  parameterType="Integer">
-		update activity set activity_applystatus=0  where activity_id=#{activityId}
+		update activity set activity_applystatus=2  where activity_id=#{activityId}
 	  </update>
 
-
-
-	   
 	   
 </mapper>

@@ -289,19 +289,21 @@ function applyActivityCheckActivitySelfInfoInit(){
 			        },
 			        {"data":'activityPredjoin'},
 			        {"data":'activityApplystatus',
-			        	render:function(data, type, row, meta){
-			        		if(data==0){
-			        			return "审核未通过";
+			        	render:function(data){
+			        		if(data==0 || data==""){
+			        			return "未申请";
 			        		}else if(data==1){
 			        			return "审核中";
 			        		}else if(data==2){
+			        			return "审核拒绝";
+			        		}else if(data==3){
 			        			return "审核通过";
 			        		}else{
-			        			return "系统出错了!";
+			        			return "系统错误";
 			        		}
 			        	}
 			        },
-			    ]
+			    ],
 			
 		});
 	

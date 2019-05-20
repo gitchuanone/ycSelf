@@ -99,7 +99,7 @@ public class UserController {
 //			httpSession.setAttribute("userNickname", user.getUserNickname());
 			httpSession.setAttribute("collegeList", collegeList);
 			//设置session失效时间;60s*...
-			httpSession.setMaxInactiveInterval(60*60*60*1);  //1小时
+			httpSession.setMaxInactiveInterval(60*60*24);  //24小时
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeErrorException(null, "error");

@@ -52,7 +52,7 @@ public class Activity  implements Serializable{
 	private Integer activityProcessscore;//活动流程(背景,装饰等)得分
 	private Integer activityFinallyscore;//活动最终得分
 	private String activityOrgcollege;//活动举办学院
-	private Integer activityApplystatus;//活动申请状态; 0-无/未通过,1-申请审核中,2-通过
+	private Integer activityApplystatus;//活动申请状态(0-未申请,1-申请中,2-审核拒绝,3-审核通过)
 	private String activityUsername;
 	// get  and set 
 	public Integer getActivityId() {
