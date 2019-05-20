@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户基本信息</title>
+<link href="../static/css/css.css"  th:href="@{/css/css.css}" type="text/css" rel="stylesheet" />
+<link href="../static/css/main.css" th:href="@{/css/main.css}"  type="text/css" rel="stylesheet" />
+<link rel="shortcut icon" href="../static/img/main/favicon.ico" th:href="@{/img/main/favicon.ico}" />
+<link th:href="@{/css/bootstrap/jquery.dataTables.min.css}" href="../static/css/bootstrap/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+<style>
+body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
+
+#search1main1{ font-size:18px;}
+#search1{ font-size:20px; background:#548fc9; margin:10px 10px 0 0; display:inline; width:100%;color:#FFF; float:left}
+#search1 form span{height:40px; line-height:40px; padding:0 0px 0 10px; float:left;}
+#search1 form input.text-word{height:24px; line-height:24px; width:180px; margin:8px 0 6px 0; padding:0 0px 0 10px; float:left; border:1px solid #FFF;}
+#search1 form input.text-but{height:24px; line-height:24px; width:55px; background:url(images/main/list_input.jpg) no-repeat left top; border:none; cursor:pointer; font-family:"Microsoft YaHei","Tahoma","Arial",'宋体'; color:#666; float:left; margin:8px 0 0 6px; display:inline;}
+#search1 a.add{ background:url(images/main/add.jpg) no-repeat -3px 7px #548fc9; padding:0 10px 0 26px; height:40px; line-height:40px; font-size:14px; font-weight:bold; color:#FFF; float:right}
+#search1 a:hover.add{ text-decoration:underline; color:#d2e9ff;}
+
+#show-all-user{ border:1px solid #eaeaea; background:#FFF; font-size:12px;}
+#show-all-user th{ font-size:12px; background:url(images/main/list_bg.jpg) repeat-x; height:32px; line-height:32px;}
+#show-all-user td{ font-size:12px; line-height:40px;}
+#show-all-user td a{ font-size:12px; color:#548fc9;}
+#show-all-user td a:hover{color:#565656; text-decoration:underline;}
+
+</style>
+</head>
+
+<body>
+<!--main_top-->
+<table width="99%" border="0" cellspacing="0" cellpadding="0" id="search1main1">
+		<!-- 表头位置信息 -->
+  <tr>
+    <th width="99%" align="left" valign="top">您的位置：用户管理</th>
+  </tr>
+   		<!-- 表标题栏信息 -->
+   <tr>
+    <th align="left" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search1">
+  		<tr>
+   		 <th width="80%" align="left" valign="middle">
+	         <span>用户信息</span>
+         </th>
+  		  <th width="20%" align="center" valign="middle" style="text-align:right; width:300px;">
+  		  		<div  type="text-but" id="resetAllUserScore"  onFocus="this.blur()" class="add">重置所有信用得分</div>
+  		  </th>
+  		</tr>
+	</table>
+    </th>
+  </tr>
+  
+</table>
+
+
+	<!-- 表格正文内容 -->
+	<table width="100%"  id="show-all-user" border="1" cellspacing="0" cellpadding="0">
+      	<thead  align="left">
+	      	<tr>
+		      	<th>账号</th>
+		      	<th>密码</th>
+		      	<th>昵称</th>
+		      	<th>电话</th>
+		      	<th>信用分</th>
+		      	<!-- <th>创建时间</th> -->
+		      	<th>等级</th>
+		      	<th>操作</th>
+	      	</tr>
+      	</thead>
+      	<tbody>
+      	
+      	</tbody>
+	</table>
+
+<script th:src="@{/js/query/jquery-3.3.1.js}" src="../static/js/query/jquery-3.3.1.js"></script>
+<script th:src="@{/js/query/jquery.dataTables.min.js}" src="../static/js/query/jquery.dataTables.min.js"></script>
+<script  src="../static/js/user-basic.js"  th:src="@{/js/user-basic.js}" ></script>
+
+</body>
+</html>

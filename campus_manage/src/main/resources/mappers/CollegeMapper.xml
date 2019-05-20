@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manage.dao.CollegeDao">
+	
+	<!-- 显示所有学院信息 -->
+	<select id="showAllCollege"  resultType="College">
+		select * from college
+	</select>
+	
+	<!-- 根据学院id值删除学院信息 -->
+	<delete id="removeCollegeByCollegeId"  parameterType="Integer">
+		delete from college where college_id=#{collegeId}
+	</delete>
+	
+	
+	<!-- #新增学院信息 -->
+	<insert id="addNewCollege" parameterType="String">
+		insert into college(college_name,college_state)  values(#{collegeName},1)	
+	</insert>
+	
+</mapper>

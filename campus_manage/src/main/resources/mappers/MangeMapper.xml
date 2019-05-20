@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manage.dao.ManageDao">
+	
+	<!-- 查询用户账号和密码 -->
+	<select id="findManageIsexistByNamePwd"  resultType="Manage">
+		select * from manage where mag_name=#{magName} and mag_password=#{magPassword};
+	</select>
+
+	<!-- 查询所有的 管理员信息-->
+	<select id="showAllManage"  resultType="Manage">
+		select * from manage
+	</select>
+
+	<!-- 删除管理员 -->
+	<delete id="removeManageByManageId"  parameterType="Integer">
+		delete from manage where mag_id=#{magId}
+	</delete>
+	
+	
+	<!-- #插入新的管理员 -->
+	<insert id="addNewManage"  parameterType="Manage">
+		insert into manage(mag_name,mag_password,mag_email,mag_phone,mag_description,mag_foundtime)  
+       		 values(#{magName},#{magPassword},#{magEmail},#{magPhone},#{magDescription},now())
+	
+	</insert>
+	
+</mapper>

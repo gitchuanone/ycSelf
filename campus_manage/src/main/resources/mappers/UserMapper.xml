@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manage.dao.UserDao">
+	
+	<!-- 查询所有的用户基本信息 -->
+	<select id="showAllUserInfo"  resultType="User">
+		select * from user
+	</select>
+	
+	<!-- #提升用户等级 -->
+	<update id="upUserLevel"  parameterType="Integer">
+		update user set user_level=(user_level + '1' )  where user_id=#{userId}	
+	</update>
+	
+	<!-- #降低用户等级 -->
+	<update id="downUserLevel"  parameterType="Integer">
+		update user set user_level=(user_level - '1' )  where user_id=#{userId}	
+	</update>
+
+	<!-- #重置用户信息 -->
+	<update id="resetUserInfo"  parameterType="Integer">
+		update user set user_password='asd123',user_nickname='',user_phone=''  where user_id=#{userId}
+	</update>
+	
+	<!-- #重置所有信用分 -->
+	<update id="resetAllUserScore"  >
+		update user set user_score='0'	
+	</update>
+	
+	
+	<!-- #按创建时间查询用户信息 -->
+	<select id="selectByFoundTime"  parameterType="String"  resultType="User">
+		select * from user where 
+		<if test="userFoundtime!null">
+			user_foundtime &gt;  #{userFoundtime}
+		</if>	
+	</select>
+	
+	<!-- #删除用户信息 -->
+		<delete id="removeUserByUserId"  parameterType="Integer">
+			delete from user where user_id=#{userId}		
+		</delete>
+	
+	<!-- #注册新用户 -->
+	<insert id="saveNewUser"  parameterType="User">
+		insert into user(user_name,user_password,user_foundtime) values(#{userName},#{userPassword},now())
+	</insert>
+	
+</mapper>

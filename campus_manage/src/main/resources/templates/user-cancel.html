@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户基本信息</title>
+<link href="../static/css/css.css"  th:href="@{/css/css.css}" type="text/css" rel="stylesheet" />
+<link href="../static/css/main.css" th:href="@{/css/main.css}"  type="text/css" rel="stylesheet" />
+<link rel="shortcut icon" href="../static/img/main/favicon.ico" th:href="@{/img/main/favicon.ico}" />
+<link th:href="@{/css/bootstrap/jquery.dataTables.min.css}" href="../static/css/bootstrap/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+<style>
+body{overflow-x:hidden; background:#f2f0f5; padding:15px 0px 10px 5px;}
+
+#show-all-user{ border:1px solid #eaeaea; background:#FFF; font-size:12px;}
+#show-all-user th{ font-size:12px; background:url(images/main/list_bg.jpg) repeat-x; height:32px; line-height:32px;}
+#show-all-user td{ font-size:12px; line-height:40px;}
+#show-all-user td a{ font-size:12px; color:#548fc9;}
+#show-all-user td a:hover{color:#565656; text-decoration:underline;}
+
+</style>
+</head>
+
+<body>
+
+<div>   
+	<div> <h1>用户注销管理</h1></div>
+	<div>
+		<!-- 表格正文内容 -->
+		<table width="100%"  id="show-all-user"  border="1" cellspacing="0" cellpadding="0">
+	      	<thead  align="left">
+		      	<tr width="10px">
+		      		<!-- <th><input type="checkbox" /> </th> -->
+			      	<th>账号</th>
+			      	<th>昵称</th>
+			      	<th>创建时间</th>
+			      	<th>操作</th>
+		      	</tr>
+	      	</thead>
+	      	<tbody>
+	      	
+	      	</tbody>
+		</table>
+	</div>
+</div>
+<script th:src="@{/js/query/jquery-3.3.1.js}" src="../static/js/query/jquery-3.3.1.js"></script>
+<script th:src="@{/js/query/jquery.dataTables.min.js}" src="../static/js/query/jquery.dataTables.min.js"></script>
+<script  src="../static/js/user-cancel.js"  th:src="@{/js/user-cancel.js}" ></script>
+
+</body>
+</html>

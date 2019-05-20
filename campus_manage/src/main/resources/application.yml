@@ -1,0 +1,65 @@
+server:
+  port: 8090
+  #thymeleaf网页静态化配置
+  thymeleaf:
+    #是否启动模板缓存
+    cache: false
+    #模板文件编码
+    encoding: UTF-8
+    #构建url时预先查看试图名称的前缀
+    #prefix: classpath:/templates/
+    #构建url时附加到视图名称的后缀
+    #suffix: .html
+    #文件解析格式
+    #content-type: text/html 
+
+
+spring:
+  #运行环境     dev:开发环境;test:测试环境;prod:生产环境
+  #profile:
+    #active: dev
+  # jackson
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd  HH:mm:ss
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+  datasource:
+    #springboot 2.0 和  type 冲突
+    #type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/campus?useSSL=false&serverTimezone=UTC&&characterEncoding=utf-8
+    username: root
+    password: data
+    driver-class-name: com.mysql.cj.jdbc.Driver
+   #模板引擎 
+  freemarker:
+    #关闭缓存
+    cache: false
+    request-context-attribute: request
+    #模板加载的位置
+    template-loader-path: classpath:/templates
+  #开启热部署
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+       
+# Mybatis
+mybatis:
+  #mybatis相关自定义配置
+  #configLocation: classpath: mybatis.xml
+  #实体类所在包
+  type-aliases-package: com.manage.model
+  #mapper.xml所在位置    
+  mapper-locations: classpath:mappers/*.xml
+  #开启驼峰命名规则
+  configuration:
+    map-underscore-to-camel-case: true
+  
+
+log:
+  level: DEBUG  
+  
+  
