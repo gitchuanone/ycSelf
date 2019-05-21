@@ -5,11 +5,14 @@
 $(function(){
 		//初始化审核表
 		initActivityCheckGoing();
-	
+		
+		//教师审核活动结果
+		teacherCheckActivityResult();
+		
 		var CCC=$("#getUserLevel").val();
 		//用户权限达级,可以实现管理用户信息
-		initUserInfoManageTable();
-		
+//		initUserInfoManageTable();
+	
 //		$("#user-info-manage-div").css({"display":"block"});
 		//重置所有用户的信用分
 //		$("#reset-userscore-zero").on('click',function(){
@@ -21,6 +24,81 @@ $(function(){
 	
 });
 
+/**
+ * 教师审核活动结果
+ * @returns
+ */
+function teacherCheckActivityResult(){
+	$("#teacher-activity-check-result").DataTable(
+			{
+				"aLengthMenu": [ 5, 10,20],//设置显示条数
+//				"scrollX":true,
+				"responsive": false,
+		        "bAutoWidth": true, //自动计算列宽
+	    		"ordering": true, //排序
+			    "pageLength": 10,　//初始化显示几条数据
+			    "pagingType": "full_numbers",
+			    "language": {　　// 这是修改语言的显示
+			        "paginate": {
+			            first: "首条",
+			            previous: "前一页",
+			            next: "下一页",
+			            last: "末页"
+			        },
+			        "info": "第_PAGE_页,共_PAGES_页",
+			        "infoEmpty": "未找到相关数据",
+			        "search": "关键字",
+			        "zeroRecords": "未找到相关数据",
+			        "decimal": ".",
+			        "thousands": ","
+			    },
+			    
+			    //ajax实现数据的传递的再现
+			    ajax:{
+	                url: "/activity-check/teacher-check-act-result-show",//修改路径即可
+	                type: 'POST',
+	                //用于处理服务器端返回的数据。 dataSrc是DataTable特有的
+	                dataSrc: function (myJson) {
+	                    if (myJson.timeout) {
+	                        return "";
+	                    }
+	                    return myJson;
+	                }
+			    },
+			    columns: [　//这个是显示到界面上的个数据　格式为 {data:'显示的字段名'}
+			        {"data":'activityTheme'},
+			        {"data":'activityOrgcollege'},
+			        {"data":'activityOrganizer'},
+			        {"data":'activityPlace'},
+			        {"data": 'activityPredtime',
+			        	render:function(data){
+			        		if(data!=null){
+			        			return data.split("T")[0]+" "+data.split("T")[1].split(".")[0];
+			        		}else{
+			        			return "";
+			        		}
+			        	}
+			        },
+			        {"data": 'activityPredjoin'},
+			        {"data":'activityApplystatus',
+			        	render:function(data){
+			        		if(data==0 || data==""){
+			        			return "未申请";
+			        		}else if(data==1){
+			        			return "审核中";
+			        		}else if(data==2){
+			        			return "审核拒绝";
+			        		}else if(data==3){
+			        			return "审核通过";
+			        		}else{
+			        			return "系统错误";
+			        		}
+			        	}
+			        },
+			    ]
+		});
+	
+};
 
 /*
  * 是否要重置所有用户的信用得分

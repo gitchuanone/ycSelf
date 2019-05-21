@@ -52,6 +52,8 @@ public interface ActivityDao {
 	/**#s审核信息,拒绝 */
 	void refuseActivityCheckGoing(Integer activityId);
 	
+	/**#展示教师执行过的审批*/
+	List<Activity> teacherCheckActResultShow(String userCollege);
 	
 	
 }

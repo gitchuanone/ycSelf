@@ -94,6 +94,11 @@ public class ActivityServiceImplement implements ActivityService {
 		activityDao.refuseActivityCheckGoing(activityId);
 		
 	}
+	@Override
+	public List<Activity> teacherCheckActResultShow(String userCollege) {
+		List<Activity>  list=activityDao.teacherCheckActResultShow(userCollege);
+		return list;
+	}
 	
 
 

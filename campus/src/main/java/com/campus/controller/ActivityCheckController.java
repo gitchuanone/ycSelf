@@ -35,7 +35,19 @@ public class ActivityCheckController {
 		}
 		return list;
 	}
-
+	
+	/** #审核员审查自己院里活动申请结果展示 ; /activity-check/teacher-check-act-result-show
+	 */
+	@RequestMapping("teacher-check-act-result-show")
+	@ResponseBody
+	public List<Activity>  teacherCheckActResultShow(HttpSession session){
+		User user=(User) session.getAttribute("user");
+		String userCollege=user.getUserCollege();
+		List<Activity> list;
+		list=actService.teacherCheckActResultShow(userCollege);
+		return list;
+	}
+	
 	/**
 	 * 审核员审核申请,同意请求;   /activity-check/aggreActivityCheckGoing
 	 */

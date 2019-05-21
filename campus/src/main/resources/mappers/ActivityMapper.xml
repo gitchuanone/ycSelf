@@ -98,5 +98,12 @@
 		update activity set activity_applystatus=2  where activity_id=#{activityId}
 	  </update>
 
+		<!-- #展示教师执行过的审批 -->
+		<select id="teacherCheckActResultShow"  parameterType="String"  resultType="Activity">
+		select * from  activity  where activity_username in (select user_name from user where user_level=1 and user_college=#{userCollege}) and 
+   				(activity_applystatus=2  or activity_applystatus=3)
+		</select>
+		
+	
 	   
 </mapper>
