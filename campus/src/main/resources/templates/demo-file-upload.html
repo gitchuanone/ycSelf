@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div>  
+        <form method="POST" enctype="multipart/form-data" action="/uploadfile">  
+                <input type="file" name="file" />  
+                <input type="submit" value="上传" />  
+        </form>  
+        <form method="POST" action="/downloadfile">  
+            <p>输入文件名<input type="text" name="fname" /></p>  
+             <input type="submit" value="下载" />  
+        </form>  
+    </div>  
+	
+</body>
+</html>

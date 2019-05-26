@@ -13,10 +13,23 @@ $(function(){
 	 //申请预参与活动的信息展示 
 	applyActivityPredActivityShowInit();
 	
+//	//可正式申请的活动
+//	showStuApplyFormalActivity();
+	
 	//活动审核过程信息表
 	applyActivityCheckActivitySelfInfoInit();
 	
 });
+
+/*
+ * 可正式申请的活动
+ */
+//function stuApplyFormalActivity(){
+//	
+//	
+//}
+
+
 
 //==============================
 /**
@@ -219,6 +232,7 @@ function updateApplyAdvanceActivit(obj){
 			success: function(result){
 				if(result.status=="true"){
 					alert("修改成功");
+					window.location.reload();
 				}
 				if(result.status=="error"){
 					alert(result.msg);
@@ -226,7 +240,6 @@ function updateApplyAdvanceActivit(obj){
 			},
 			error: function(){ alert(result.msg);  }
 		});
-		window.location.reload();
 	});
 	
 };
@@ -274,9 +287,6 @@ function applyActivityCheckActivitySelfInfoInit(){
 			    columns: [　//这个是显示到界面上的个数据　格式为 {data:'显示的字段名'}
 			        {"data":'activityTheme'},
 			        {"data":'activityOrgcollege'},
-			        {"data":'activityOrganizer'},
-			        {"data":'activityPlace'},
-			        {"data":'activityDescription'},
 			        {"data": 'activityPredtime',
 			        	render:function(data){
 			        		return data.split("T")[0]+" "+data.split("T")[1].split(".")[0];
@@ -303,16 +313,64 @@ function applyActivityCheckActivitySelfInfoInit(){
 			        		}
 			        	}
 			        },
+			        {"data":"activityId",
+			        	render :function(data){
+			        		return '<form enctype="multipart/form-data">'+
+			        		'<input type="file" name="file" id="upload-file_'+data+'"/>'+
+			        		'<button type="button" class="btn btn-accent" upload-file-actid="'+data+'"  onclick="applyUploadFile(this)" >上传文件</button>'+
+			        		'</form>'
+			        		;
+			        	}
+			        },
+			        {"data": "applyFilename",
+			        	render : function(data){
+			        		if(data==null || data==""){
+			        			return  "无文件";
+			        		}else{
+			        			return  data;
+			        		}
+			        	}
+			        },
 			    ],
-			
 		});
 	
 };
 
-
-
-
-
+/*
+ * 文件上传
+ */
+function applyUploadFile(obj){
+	var dataId=$(obj).attr("upload-file-actid");
+	var formData =  new FormData();
+	var uploadFile = document.getElementById("upload-file_"+dataId).files[0];
+	if(uploadFile == null){
+		alert("文件为空");
+		return;
+	}
+	//往后台传入参数
+	formData.append("uploadFile",uploadFile);
+	formData.append("uploadFileName","uploadFile");
+	formData.append("activityId",parseInt(dataId));
+	$.ajax({
+		url: "/activity-apply/uploadApplyActivityFile",
+		data: formData,
+		type: "POST",
+		processData : false,  //必须false才会避开jQuery对 formdata 的默认处理   
+        contentType : false,  //必须false才会自动加上正确的Content-Type 
+		success: function(result){
+			if(result.status=="true"){
+				alert("上传成功");
+			}
+			if(result.status=="error"){
+				alert(result.msg);
+			}
+		},
+		error: function(result){ 
+			alert(result.msg);  
+		}
+	});
+	
+};
 
 
 

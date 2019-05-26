@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.campus.dao.ActivityDao;
+import com.campus.model.ActFile;
 import com.campus.model.Activity;
 import com.campus.service.ActivityService;
 @Service
@@ -98,6 +99,32 @@ public class ActivityServiceImplement implements ActivityService {
 	public List<Activity> teacherCheckActResultShow(String userCollege) {
 		List<Activity>  list=activityDao.teacherCheckActResultShow(userCollege);
 		return list;
+	}
+	
+	@Override
+	public void uploadApplyActivityApplystatusByActivityId(Integer activityId) {
+		activityDao.uploadApplyActivityApplystatusByActivityId(activityId);
+		
+	}
+	@Override
+	public ActFile isFileExitByActiviyId(Integer activityId) {
+		ActFile actfile=activityDao.isFileExitByActiviyId(activityId);
+		return actfile;
+	}
+	@Override
+	public void saveNewUploadFileInfo(ActFile actfile) {
+		activityDao.saveNewUploadFileInfo(actfile);
+		
+	}
+	@Override
+	public void modifyActivityfileInfoByActivityId(ActFile actfile) {
+		activityDao.modifyActivityfileInfoByActivityId(actfile);
+		
+	}
+	@Override
+	public void modifyApplyFilenameWhenUploadFile(Activity activity) {
+		activityDao.modifyApplyFilenameWhenUploadFile(activity);
+		
 	}
 	
 

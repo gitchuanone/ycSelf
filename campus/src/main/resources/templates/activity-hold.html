@@ -8,11 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link th:href="@{/css/bootstrap/jquery.dataTables.min.css}" href="../static/css/bootstrap/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
-    
+    <!-- 
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+     -->
+      
+    <link rel="stylesheet" th:href="@{/css/yc-all.css}" href="../static/css/yc-all.css">
+   <link rel="stylesheet" th:href="@{/css/yc-icon-family.css}" href="../static/css/yc-icon-family.css">
+   <link rel="stylesheet" th:href="@{/css/yc-bootstrap.min.css}" href="../static/css/yc-bootstrap.min.css" >
     
+     
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0"  th:href="@{/css/styles/shards-dashboards.1.1.0.min.css}"  href="../static/css/styles/shards-dashboards.1.1.0.min.css">
     <link rel="stylesheet" th:href="@{/css/styles/extras.1.1.0.min.css}" href="../static/css/styles/extras.1.1.0.min.css">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -42,6 +48,10 @@
         <div th:replace="common/extract-top :: extract-top"></div>
           
           <!-- / .main-navbar -->
+          <div class="main-content-container container-fluid px-4">
+          
+          <!-- 弹出框信息 -->
+          <!-- 
           <div class="alert alert-accent alert-dismissible fade show mb-0" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">×</span>
@@ -49,6 +59,7 @@
             <i class="fa fa-info mx-2"></i>
             <strong>Here</strong> 新时代中国青年，要有家国情怀，也要有人类关怀，发扬中华文化崇尚的四海一家、天下为公精神
           </div>
+         -->
         
         <!-- 小矩形框 -->
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
@@ -85,6 +96,26 @@
           </div>
               
         </div>
+        
+        
+        <div  class="row">
+        	<div class="page-header row no-gutters py-4">
+	             <!--  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+	              </div> -->
+	                <h2 class="page-title" align="left">风沙大家</h2>
+	            </div>
+	           
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- ========================================================================== -->
         
         <!-- 签到码生成模态框 -->
         <div aria-labelledby="myModalLabel" class="modal fade bs-example-modal-lg" id="erweima-chulai-modal" role="dialog" >
@@ -125,15 +156,8 @@
 		            </div>
 	        </div>
       </div>
-      
-      
         
-        
-        
-        
-        
-        
-       
+     </div>
          						 <!-- 页面右边最下面的角标行 -->
           <footer th:replace="common/extract-rightend :: extract-rightend"></footer>
           
@@ -144,13 +168,21 @@
 <script th:src="@{/js/query/jquery.min.js}" src="../static/js/query/jquery.min.js"></script>
 <script th:src="@{/js/query/qrcode.min.js}" src="../static/js/query/qrcode.min.js"></script>
   
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script th:src="@{/js/query/jquery-3.3.1.min.js}" src="../static/js/query/jquery-3.3.1.min.js"></script>
+<!-- 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
- 
+  -->
+<script th:src="@{/js/yc-popper.min.js}" src="../static/js/yc-popper.min.js" ></script>
+<script th:src="@{/js/bootstrap/bootstrap.min.js}" src="../static/js/bootstrap/bootstrap.min.js"></script>
+<script th:src="@{/js/yc-Chart.min.js}" src="../static/js/yc-Chart.min.js"></script>
+<script th:src="@{/js/yc-shards.min.js}" src="../static/js/yc-shards.min.js"></script>
+<script th:src="@{/js/yc-jquery-sharrre.min.js}" src="../static/js/yc-jquery-sharrre.min.js"></script>
+  
+  
 <script th:src="@{/scripts/extras.1.1.0.min.js}" src="../static/scripts/extras.1.1.0.min.js"></script>
 <script th:src="@{/scripts/shards-dashboards.1.1.0.min.js}" src="../static/scripts/shards-dashboards.1.1.0.min.js"></script>
 <script th:src="@{/js/query/jquery.dataTables.min.js}" src="../static/js/query/jquery.dataTables.min.js"></script>

@@ -2,14 +2,19 @@ package com.campus.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.campus.common.AjaxResult;
+import com.campus.common.FileUtil;
+import com.campus.model.ActFile;
 import com.campus.model.ActUser;
 import com.campus.model.Activity;
 import com.campus.model.User;
@@ -23,6 +28,9 @@ public class ActivityApplyController {
 	private ActivityService actService;
 	@Autowired
 	private ActUserService actUserService; 
+	//获得Springboot提供的mongodb的GridFS对象
+	@Autowired
+	private GridFsTemplate  gridFsTemplate ;
 	
 	/*  预参与活动申请   /activity-apply/advanceapply 
 	 * # activityUsername activityTheme activityOrgcollege activityOrganizer activityDescription activityPredtime
@@ -149,6 +157,56 @@ public class ActivityApplyController {
 			return AjaxResult.error("修改失败");
 		}
 		return  AjaxResult.oK();
+	}
+	
+	
+	/***
+	 *  活动申请上传文件;  并修改活动申请状态       /activity-apply/uploadApplyActivityFile
+	 *  //添加文件mongodb中id
+		list.add(mongoId);
+		//添加文件名
+		list.add(fileName);
+	 * @param activityId
+	 * @return
+	 */
+	@RequestMapping(value="uploadApplyActivityFile", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult  uploadApplyActivityFile(HttpServletRequest req) {
+		try {
+			//从request中获取前端传送的formdata数据
+			String uploadFileName = req.getParameter("uploadFileName");
+			Integer activityId = Integer.parseInt(req.getParameter("activityId"));
+			//判断act_file中是否有文件存储数据
+			ActFile oldactFile=actService.isFileExitByActiviyId(activityId);
+			if(oldactFile!=null) {
+				//有文件记录,先删除文件
+				String deleteId=oldactFile.getApplyFile1();
+				FileUtil.deleteMongoFileByObjectId(deleteId, gridFsTemplate);
+			}
+			//接受上传文件,活动id;获取存入mongodb返回的文件信息
+			ActFile actfile=FileUtil.uploadFile(req,uploadFileName,gridFsTemplate);
+			actfile.setActId(activityId);
+			//判断是否为第一次存入文件
+			if(oldactFile==null) {
+				//没有数据,新插入数据记录
+				actService.saveNewUploadFileInfo(actfile);
+			}
+			//已经有上传文件记录,则新上传文件记录覆盖之前记录
+			actService.modifyActivityfileInfoByActivityId(actfile);
+			//改变申请状态
+			actService.uploadApplyActivityApplystatusByActivityId(activityId);
+			
+			//将文件名称存入activity表中
+			Activity activity=new Activity();
+			activity.setActivityId(activityId);
+			ActFile newActFile=actService.isFileExitByActiviyId(activityId);
+			activity.setApplyFilename(newActFile.getApplyFileName());
+			actService.modifyApplyFilenameWhenUploadFile(activity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return AjaxResult.error("上传文件失败!");
+		}
+		return AjaxResult.oK();
 	}
 	
 	

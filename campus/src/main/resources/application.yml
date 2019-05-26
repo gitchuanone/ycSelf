@@ -12,6 +12,21 @@ spring:
     username: root
     password: data
     driverClassName: com.mysql.cj.jdbc.Driver
+  
+  #MongoDB配置
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: activity
+      
+  #设置文件限制
+  servlet:
+    multipart:
+      #单个文件大小
+      max-file-size: 16MB
+      #总上传文件大小
+      max-request-size: 16MB    
     
   #模板引擎 
   freemarker:
@@ -29,7 +44,7 @@ spring:
     hibernate:
          ddl-auto: update
     #properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
-    database-platform: org.hibernate.dialect.MySQL5Dialect
+    #database-platform: org.hibernate.dialect.MySQL5Dialect
     #hibernate:
       #naming:
         #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

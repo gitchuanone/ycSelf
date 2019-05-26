@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.campus.model.ActFile;
 import com.campus.model.Activity;
 public interface ActivityDao {
 	/**查询所有的活动信息,主题不为空*/
@@ -39,6 +40,19 @@ public interface ActivityDao {
 	void deleteSelfApplyAdvanceActicity(@Param("activityId") Integer activityId);
 	/**修改自己写的预申请活动信息*/
 	void updateSelfApplyAdvanceActicity(Activity activity);
+	
+	//=====活动申请文件上传=====
+	/**#申请活动;修改活动申请状态值 */
+	void uploadApplyActivityApplystatusByActivityId(Integer activityId);
+	/**#文件上传前判断是否有记录*/
+	ActFile isFileExitByActiviyId(Integer activityId);
+	/**#第一次上传文件,无记录,新插入基本信息 */
+	void saveNewUploadFileInfo(ActFile actfile);
+	/**#再次上传文件,将文件信息修改保存到act_fil表中*/
+	void modifyActivityfileInfoByActivityId(ActFile actfile);
+	/**#申请文件上传后,将名称存入活动表中*/
+	void modifyApplyFilenameWhenUploadFile(Activity activity);
+	
 	
 	
 	

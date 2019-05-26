@@ -2,14 +2,19 @@ package com.campus.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.campus.common.AjaxResult;
+import com.campus.common.FileUtil;
+import com.campus.model.ActFile;
 import com.campus.model.Activity;
 import com.campus.model.User;
 import com.campus.service.ActivityService;
@@ -19,6 +24,10 @@ import com.campus.service.ActivityService;
 public class ActivityCheckController {
 	@Autowired
 	private ActivityService actService;
+	//获得Springboot提供的mongodb的GridFS对象
+	@Autowired
+	private GridFsTemplate  gridFsTemplate ;
+	
 	
 	/** #审核员审查自己院里管理员申请的活动,结果集展示 /activity-check/check-act-show
 	 */
@@ -75,6 +84,29 @@ public class ActivityCheckController {
 		}
 		return AjaxResult.oK();
 	}
+	
+	/**
+	 * 审批下载文件;     /activity-check/downloadFileByObjectId
+	 * @param activityId
+	 * @return
+	 */
+	@RequestMapping("downloadFileByObjectId")
+	@ResponseBody
+	public AjaxResult downloadFileByObjectId(Integer activityId,HttpServletRequest request,
+			 HttpServletResponse res,HttpServletResponse response) {
+		try {
+			ActFile actFile=actService.isFileExitByActiviyId(activityId);
+			String objectId=actFile.getApplyFile1();
+			//下载文件
+			//TODO
+//			FileUtil.downloadFile(objectId, gridFsTemplate, request, response);
+			
+		} catch (Exception e) {
+			return AjaxResult.error();
+		}
+		return AjaxResult.oK();
+	}
+	
 	
 	
 }

@@ -57,11 +57,12 @@
 	select * from activity where activity_username=#{activityUsername}  and (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &gt; now()  
 	</select>
 	
-	<!-- #展示自己参与到的预参与申请活动信息 -->
+	<!-- #展示自己参与到的预参与申请活动信息,申请正式活动 -->
 	<select id="showSelfApplyCheckActivity"  parameterType="String"  resultType="Activity">
 		select * from activity where  activity_username=#{activityUsername}  and  
 		     (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &lt; now() and   
 		         (select DATE_ADD(activity_processtime,INTERVAL '5' day)) &gt; now() 
+		          and  activity_applystatus !='3'
 	</select>
 	
 	<!-- #根据活动id删除自己写的预参与活动信息 -->
@@ -74,6 +75,37 @@
 		update activity set activity_theme=#{activityTheme},activity_orgcollege=#{activityOrgcollege},activity_description=#{activityDescription},activity_predtime=#{activityPredtime}
 		  where activity_id=#{activityId}
 	</update>
+	
+	
+	<!-- //////  申请活动上传文件      ////// -->
+	<!-- #申请活动;修改活动申请状态值 -->
+	<update id="uploadApplyActivityApplystatusByActivityId"  parameterType="Integer">
+		update activity set activity_applystatus='1'  where  activity_id=#{activityId}
+	</update>
+	
+	<!-- #文件上传前判断是否有记录 -->
+	<select id="isFileExitByActiviyId"  parameterType="Integer"  resultType="ActFile">
+		select * from  act_file  where act_id=#{activityId}	
+	</select>
+	
+	<!-- #第一次上传文件,无记录,新插入基本信息 -->
+	<insert id="saveNewUploadFileInfo"  parameterType="ActFile">
+		insert into act_file(act_id,apply_file1,apply_file_name)  values(#{actId},#{applyFile1},#{applyFileName})	
+	</insert>
+	
+	<!-- #再次上传文件,将文件信息修改保存到act_fil表中 -->
+	<update id="modifyActivityfileInfoByActivityId"  parameterType="ActFile">
+		update act_file set  apply_file1=#{applyFile1},apply_file_name=#{applyFileName}  where act_id=#{actId}	
+	</update>
+	
+	<!-- #申请文件上传后,将名称存入活动表中 -->
+	<update id="modifyApplyFilenameWhenUploadFile"  parameterType="Activity">
+		update  activity set apply_filename=#{applyFilename}  where  activity_id=#{activityId}	
+	</update>
+	
+	
+	
+	
 	
 	
 	<!-- ===========================================审查=================================================== -->

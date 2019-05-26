@@ -12,10 +12,10 @@ import javax.persistence.Table;
 	user_id2	int(11)
 	user_applyjoin	int(4)
 	user_endjoin	int(4)
-	act_innovatescore	int(4)
-	act_executescore	int(4)
-	act_processscore	int(4)
-	act_finallyscore	int(4)
+	act_innovatescore	double(2)
+	act_executescore	double(2)
+	act_processscore	double(2)
+	act_finallyscore	double(2)
  * @author Administrator
  *
  */
@@ -30,10 +30,11 @@ public class ActUser implements Serializable{
 	private Integer userId2;//用户主键
 	private Integer  user_applyjoin;//用户预参与
 	private Integer  user_endjoin;//用户实际参与
-	private Integer  act_innovatescore;//活动创意得分
-	private Integer  act_executescore;//活动执行得分
-	private Integer  act_processscore;//活动流程得分
-	private Integer  act_finallyscore;//活动诸侯得分
+	
+	private Double  act_innovatescore;//活动创意得分
+	private Double  act_executescore;//活动执行得分
+	private Double  act_processscore;//活动流程得分
+	private Double  act_finallyscore;//活动诸侯得分
 	//set and get
 	public Integer getActId2() {
 		return actId2;
@@ -59,28 +60,28 @@ public class ActUser implements Serializable{
 	public void setUser_endjoin(Integer user_endjoin) {
 		this.user_endjoin = user_endjoin;
 	}
-	public Integer getAct_innovatescore() {
+	public Double getAct_innovatescore() {
 		return act_innovatescore;
 	}
-	public void setAct_innovatescore(Integer act_innovatescore) {
+	public void setAct_innovatescore(Double act_innovatescore) {
 		this.act_innovatescore = act_innovatescore;
 	}
-	public Integer getAct_executescore() {
+	public Double getAct_executescore() {
 		return act_executescore;
 	}
-	public void setAct_executescore(Integer act_executescore) {
+	public void setAct_executescore(Double act_executescore) {
 		this.act_executescore = act_executescore;
 	}
-	public Integer getAct_processscore() {
+	public Double getAct_processscore() {
 		return act_processscore;
 	}
-	public void setAct_processscore(Integer act_processscore) {
+	public void setAct_processscore(Double act_processscore) {
 		this.act_processscore = act_processscore;
 	}
-	public Integer getAct_finallyscore() {
+	public Double getAct_finallyscore() {
 		return act_finallyscore;
 	}
-	public void setAct_finallyscore(Integer act_finallyscore) {
+	public void setAct_finallyscore(Double act_finallyscore) {
 		this.act_finallyscore = act_finallyscore;
 	}
 	//
