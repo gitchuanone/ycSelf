@@ -2,12 +2,18 @@
  * 页面加载
  */
 $(function(){
+	
 	//活动预申请的点击模态框
 	clickActivityAdvanceApplyModalInit();
 	
 	//活动申请的模态框
 	$("#click-activity-apply").on("click",function(){//会执行,但是只是绑定点击事件
-		$("#click-activity-apply-modal").modal("show");
+		var level=$("#getUserLevelForPermiss").val();
+		if(level==0 || level==null){
+			return "权限不够,无法执行";
+		}else{
+			$("#click-activity-apply-modal").modal("show");
+		}
 	}); 
 	
 	 //申请预参与活动的信息展示 
@@ -84,7 +90,8 @@ function getCheckboxVal(inputname){
  */
 function clickActivityAdvanceApplyModalInit(){
 	$("#click-activity-advance-apply").on("click",function(){//会执行,但是只是绑定点击事件
-		if( $("#getUserLevelForPermiss").val()==0){
+		var le=$("#getUserLevelForPermiss").val();
+		if( le==0 || le==null){
 			alert("您的权限不够");
 			return false;
 		};

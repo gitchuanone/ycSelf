@@ -32,7 +32,7 @@
 	}
   </script>
   <body class="h-100">
-	<input style="display:none"  id="getUserLevel"  th:value="@{session.user.userLevel}"></input>  
+	<input style="display:none"  id="getUserLevel"  th:value="${session.user.userLevel}"></input>  
     <div class="container-fluid">
       <div class="row">
        						 <!-- 引入左边菜单栏 -->
@@ -53,6 +53,7 @@
               </div>
             </div>
             
+            <div id="show-error-info"> </div>
             	<!-- 审核自家学院的活动申请 -->
            		<div class="page-header row no-gutters py-4">
 	             <!--  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
@@ -70,6 +71,7 @@
 		              			<td>预计时间</td>
 		              			<td>预参与人数</td>
 		              			<td>操作</td>
+		              			<td>文件名</td>
 		              			</tr>
 		              		</thead>
 	             		</table>

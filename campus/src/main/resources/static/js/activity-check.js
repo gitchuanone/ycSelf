@@ -3,6 +3,9 @@
  * 页面加载
  */
 $(function(){
+	//判断用户等级进行展示
+	var level=$("#getUserLevel").val();
+	if(level==2){
 		//初始化审核表
 		initActivityCheckGoing();
 		
@@ -20,7 +23,11 @@ $(function(){
 //				ensureResetUserscoreZero();
 //			});
 //		});
-	
+		
+	}else{
+//		document.getElementById("#show-error-info").innerHTML='<h1>权限不够,无法展示</h1>';
+		$("#show-error-info").html('<h1>权限不够,无法展示</h1>');
+	}
 	
 });
 
@@ -164,6 +171,16 @@ function initActivityCheckGoing(){
 			        		'&nbsp;&nbsp;<button type="button" class="btn btn-accent"   onclick="checkDownFile('+data+')" >下载文件</button>';
 			        	}
 			        },
+			        {"data": 'applyFilename',
+			        	render: function(data){
+			        		if(data==null || data==""){
+			        			return "无上传文件";
+			        		}else{
+			        			return data;
+			        		}
+			        	}
+			        },
+
 			    ]
 		});
 	

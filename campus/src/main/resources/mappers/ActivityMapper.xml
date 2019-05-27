@@ -62,7 +62,7 @@
 		select * from activity where  activity_username=#{activityUsername}  and  
 		     (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &lt; now() and   
 		         (select DATE_ADD(activity_processtime,INTERVAL '5' day)) &gt; now() 
-		          and  activity_applystatus !='3'
+		          and  activity_applystatus  !='3'
 	</select>
 	
 	<!-- #根据活动id删除自己写的预参与活动信息 -->
@@ -112,7 +112,7 @@
 	
 	<!-- #审核员审查自己院里管理员申请的活动,结果集展示 -->
 	<select id="checkSelfCollegeApplyActivity"  resultType="Activity"  parameterType="String">
-		select * from  activity  where activity_username in (select user_name from user where user_level=1 and user_college=#{userCollege}) 
+		select * from  activity  where activity_username in (select user_name from user where (user_level=1 or user_level=2) and user_college=#{userCollege} ) 
 		      and  activity_applystatus=1	
 	</select>
 	 <!-- #如果为超级管理员,可以查看所有的信息 -->
