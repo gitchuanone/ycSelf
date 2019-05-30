@@ -4,23 +4,33 @@
 $(function(){
 	
 	//活动预申请的点击模态框
-	clickActivityAdvanceApplyModalInit();
+	$("#click-activity-advance-apply").on("click",function(){//会执行,但是只是绑定点击事件
+		var le=$("#getUserLevelForPermiss").val();
+		if( le==0 || le==null){
+			alert("您的权限不够");
+			return false;
+		};
+		//初始化预申请模态框信息
+		clickActivityAdvanceApplyModalInit();
+	});
+	
+	
 	
 	//活动申请的模态框
 	$("#click-activity-apply").on("click",function(){//会执行,但是只是绑定点击事件
 		var level=$("#getUserLevelForPermiss").val();
 		if(level==0 || level==null){
-			return "权限不够,无法执行";
+			alert("您的权限不够")
+			return false;
 		}else{
 			$("#click-activity-apply-modal").modal("show");
+//			//可正式申请的活动
+//			showStuApplyFormalActivity();
 		}
 	}); 
 	
 	 //申请预参与活动的信息展示 
 	applyActivityPredActivityShowInit();
-	
-//	//可正式申请的活动
-//	showStuApplyFormalActivity();
 	
 	//活动审核过程信息表
 	applyActivityCheckActivitySelfInfoInit();
@@ -83,27 +93,35 @@ function getCheckboxVal(inputname){
     return chk_value.join(",");
 };
 
-//==============================
+//===============================================
 /**
  * //活动预申请的点击模态框
  * @returns
  */
 function clickActivityAdvanceApplyModalInit(){
-	$("#click-activity-advance-apply").on("click",function(){//会执行,但是只是绑定点击事件
-		var le=$("#getUserLevelForPermiss").val();
-		if( le==0 || le==null){
-			alert("您的权限不够");
-			return false;
-		};
+		//初始化弹出模态框
 		$("#click-activity-advance-apply-modal").modal("show");
 		
 		//预参与申请编辑提交路径
 		$("#activity-advance-apply-button").on('click',function(){
 			var AAA=confirm("确认提交?");
-			if(!AAA){   return ;  };
+			if(!AAA){   
+				return  false;  
+			};
+			//判断主题
+			if($("#activityTheme1").val()=="" || $("#activityTheme1").val()==null){
+				alert("主题不能为空!")
+				return  false;
+			}
+			//判断描述
+			if($("#activityDescription1").val()=="" || $("#activityDescription1").val()==null){
+				alert("主题不能为空!")
+				return  false;
+			}
+			//判断预计时间
 			if($("#click-activity-advance-apply-modal").find("input[name='activityPredtime1']").val()==""){
-				alert("时间不能为空!");
-				return;
+				alert("时间为空或不完整");
+				return  false;
 			}
 			var param={};
 			param.activityUsername=$("#activityUsername1").val();
@@ -126,7 +144,6 @@ function clickActivityAdvanceApplyModalInit(){
 			});
 			
 		});
-	}); 
 	
 };
 
@@ -367,6 +384,7 @@ function applyUploadFile(obj){
 		success: function(result){
 			if(result.status=="true"){
 				alert("上传成功");
+				window.location.reload();
 			}
 			if(result.status=="error"){
 				alert(result.msg);
@@ -378,7 +396,3 @@ function applyUploadFile(obj){
 	});
 	
 };
-
-
-
-

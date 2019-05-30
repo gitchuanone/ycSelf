@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery简单用户评分代码</title>
+
+<script type="text/javascript" src="../static/js/query/jquery-1.9.0.js"  th:src="@{/js/query/jquery-1.9.0.js}"></script>
+<script type="text/javascript">
+$(function(){
+
+	//简洁用户评分代码
+	$(".pfxtFen li").click(function(){
+		$(this).addClass("pfxtCur");
+		$(this).prevAll().addClass("pfxtCur");
+		$(this).nextAll().removeClass("pfxtCur");
+	});
+		
+	$(".pfxtFen li").dblclick(function(){
+		$(".pfxtFen li").removeClass("pfxtCur");
+	});
+	
+})
+</script>
+
+<style type="text/css">
+*{margin:0;padding:0; font-family:"微软雅黑"}
+ul{ list-style:none;}
+ /*用户评分*/
+.pingfenxitong{
+	padding:15px 0;
+	width:1200px;
+	margin:0 auto;
+	}
+.pingfenList{
+	float:left;
+	width:500px;
+	padding-right:20px;
+	}
+.pfxtTitle{
+	font-weight:bold;
+	font-size:1.2em;
+	padding:4px 0;
+	}
+.pfxtText{
+	line-height:25px;
+	}
+.pfxtFen{
+	margin:10px 0;
+	}
+.pfxtFen li{
+	float:left;
+	width:98px;
+	height:30px;
+	text-align:center;
+	line-height:30px;
+	border:#ddd 1px solid;
+	background:#f1f1f1;
+	cursor:pointer;
+	}
+.pfxtFen li.pfxtCur{
+	background:#308A95;
+	color:#fff;
+	border:#308A95 1px solid;
+	}
+
+</style>
+</head>
+
+<body>
+
+<!--用户评分代码-->
+<div class="pingfenxitong">
+
+	<div class="pingfenList">
+	
+		<div class="pfxtTitle">功能：</div>
+		<div class="pfxtText">你觉得这个创意在功能上优秀吗？</div>
+		<ul class="pfxtFen" title="双击取消评分">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<div class="clearfix"></div>
+		</ul><!--pfxtMid/-->
+			
+		<div class="pfxtRight"></div>
+		<div class="clearfix"></div>
+	</div><!--pingfenList/-->
+	
+	<div class="pingfenList">
+		<div class="pfxtTitle">外观：</div>
+		<div class="pfxtText">你觉得这个创意在外观上优秀吗？</div>
+		<ul class="pfxtFen" title="双击取消评分">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<div class="clearfix"></div>
+		</ul><!--pfxtMid/-->
+		<div class="pfxtRight"></div>
+		<div class="clearfix"></div>
+	</div><!--pingfenList/-->
+	
+	<div class="pingfenList">
+		<div class="pfxtTitle">成本：</div>
+		<div class="pfxtText">你觉得这个创意在成本上优秀吗？</div>
+		<ul class="pfxtFen" title="双击取消评分">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<div class="clearfix"></div>
+		</ul><!--pfxtMid/-->
+		<div class="pfxtRight"></div>
+		<div class="clearfix"></div>
+	</div><!--pingfenList/-->
+	
+	<div class="pingfenList">
+		<div class="pfxtTitle">难度：</div>
+		<div class="pfxtText">你觉得这个创意在难度上可行吗？</div>
+		<ul class="pfxtFen" title="双击取消评分">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<div class="clearfix"></div>
+		</ul><!--pfxtMid/-->
+		<div class="pfxtRight"></div>
+		<div class="clearfix"></div>
+	</div><!--pingfenList/-->
+	
+	<div class="clearfix"></div>
+
+</div><!--pingfenxitong/-->
+<!--用户评分代码-->
+
+	 
+</body>
+</html>

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mongodb.gridfs.GridFSFile;
+
 
 @Controller
 @EnableAutoConfiguration
@@ -44,6 +46,7 @@ public class TestUpDownFileController {
             // 获得文件类型  
             String contenttype = part.getContentType();  
             // 将文件存储到mongodb中,mongodb 将会返回这个文件的具体信息  
+//            GridFSFile gfs = gridFsTemplate.store(ins, filename, contenttype);  
             ObjectId gfs = gridFsTemplate.store(ins, filename, contenttype);  
             result = gfs.toString();  
   

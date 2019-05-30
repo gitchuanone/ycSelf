@@ -1,0 +1,161 @@
+<!doctype html>
+<html class="no-js h-100" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shards Dashboard Lite - Free Bootstrap Admin Template – DesignRevision</title>
+    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link th:href="@{/css/bootstrap/jquery.dataTables.min.css}" href="../static/css/bootstrap/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+   <link rel="stylesheet" th:href="@{/css/yc-all.css}" href="../static/css/yc-all.css" />
+   <link rel="stylesheet" th:href="@{/css/yc-icon-family.css}" href="../static/css/yc-icon-family.css"  />
+   <link rel="stylesheet" th:href="@{/css/yc-bootstrap.min.css}" href="../static/css/yc-bootstrap.min.css" />
+    
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0"  th:href="@{/css/styles/shards-dashboards.1.1.0.min.css}"  href="../static/css/styles/shards-dashboards.1.1.0.min.css"  />
+    <link rel="stylesheet" th:href="@{/css/styles/extras.1.1.0.min.css}" href="../static/css/styles/extras.1.1.0.min.css"  />
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+  <script  th:inline="javascript">
+    var user = [[${session.user}]];
+	if(user== null){ 
+		var pathArray = window.location.href.split("/");
+		var url = pathArray[0]+"//"+pathArray[2];
+		window.location.href = url; 
+		// https://localhost:8080/
+	}
+  </script>
+  <body class="h-100">
+	<input style="display:none"  id="getUserLevel"  th:value="${session.user.userLevel}"></input>  
+    <div class="container-fluid">
+      <div class="row">
+       						 <!-- 引入左边菜单栏 -->
+		<div th:replace="common/extract-leftmenu :: extract-leftmenu"></div>	
+        
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        
+          					 <!-- 引入右上的头部栏 -->
+          <div th:replace="common/extract-top :: extract-top"></div>
+          
+          <!-- / .main-navbar -->
+          <div class="main-content-container container-fluid px-4">
+            
+            <!-- 页面顶部标题栏 -->
+           <div class="page-header row no-gutters py-4"  >
+              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <h3 class="page-title">活动进行</h3>
+              </div>
+            </div>
+           
+           <!-- 弹出框显示 -->
+           <div class="row" style="display:none"   id="show-erweima-popup">  
+              <!-- 一行一列 -->
+              <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card card-small card-post card-post--1">
+	                  <div class="card-body">
+                  		 <div class="card-post__image" style="background-image: url('images/swust-recruit.png');background-size:100%" ></div>
+	                  </div>
+                </div>
+              </div>
+              
+              <!-- 一行二列 -->
+              <!-- 
+              <div class="col-lg-6 col-sm-12 mb-4">
+              
+                <div class="card card-small card-post card-post--aside card-post--1">
+                  <div class="card-post__image" style="background-image: url('images/content-management/4.jpeg');"></div>
+                  <div class="card-body">
+					   <button type="button" class="btn btn-accent"  id="erweima-button">建设中...</button>                  
+                  </div>
+                </div>
+              </div>
+               -->
+            </div>
+           
+           <!-- 展示可以进行签到的活动 -->
+           <div class="page-header row no-gutters py-4">
+	                <h2 class="page-title" align="left">活动详情</h2>
+           		 </div>
+             <div class="row" style="background:#FFF;display:none"  id="show-manual-sign-activity-div"  >
+        		<table id="show-all-could-sign-activity-table" class="table table-bordered table-striped"  width="100%" align="left"> 
+            		<thead>
+            			<tr>
+            			<td>主题</td>
+            			<td>学院</td>
+            			<td>负责人</td>
+            			<td>预计时间</td>
+            			<td>预计人数</td>
+            			<td>与会人数</td>
+            			<td>操作</td>
+            			</tr>
+            		</thead>
+            		<tbody>
+            		
+            		</tbody>
+          		</table>
+            </div>
+			           	
+           	
+	           
+           <!-- 参加签到人员 -->
+           <!-- 
+           <div class="row" style="background:#FFF"  >
+             	<div class="page-header row no-gutters py-4">
+	                <h2 class="page-title" align="left">与会人员</h2>
+           		</div>
+        		<table id="show-all-have-sign-user" class="table table-bordered table-striped"  width="100%" align="left"> 
+            		<thead>
+            			<tr>
+            			<td>账户</td>
+            			<td>昵称</td>
+            			<td>学院</td>
+            			</tr>
+            		</thead>
+            		<tbody>
+            		
+            		</tbody>
+          		</table>
+            </div>
+            -->
+           
+            <div class="page-header row no-gutters py-4">
+	                <h2 class="page-title" align="left">东方嘉盛</h2>
+            </div>
+             <div class="row" style="background:#FFF" >
+        		<table  class="table table-bordered table-striped"  width="100%" align="left"> 
+            		<thead>
+            			<tr>
+            			<td>主题</td>
+            			<td>学院</td>
+            			<td>负责人</td>
+            			</tr>
+            		</thead>
+          		</table>
+            </div>
+            
+          
+          							<!-- 页面右边最下面的角标行 -->
+          <footer th:replace="common/extract-rightend :: extract-rightend"></footer>		
+          		
+          
+        </main>
+      </div>
+    </div>
+ 
+<script th:src="@{/js/query/jquery-3.3.1.min.js}" src="../static/js/query/jquery-3.3.1.min.js"></script>
+  
+<script th:src="@{/js/yc-popper.min.js}" src="../static/js/yc-popper.min.js" ></script>
+<script th:src="@{/js/bootstrap/bootstrap.min.js}" src="../static/js/bootstrap/bootstrap.min.js"></script>
+<script th:src="@{/js/yc-Chart.min.js}" src="../static/js/yc-Chart.min.js"></script>
+<script th:src="@{/js/yc-shards.min.js}" src="../static/js/yc-shards.min.js"></script>
+<script th:src="@{/js/yc-jquery-sharrre.min.js}" src="../static/js/yc-jquery-sharrre.min.js"></script>
+     
+<script th:src="@{/scripts/extras.1.1.0.min.js}" src="../static/scripts/extras.1.1.0.min.js"></script>
+<script th:src="@{/scripts/shards-dashboards.1.1.0.min.js}" src="../static/scripts/shards-dashboards.1.1.0.min.js"></script>
+<script th:src="@{/js/query/jquery.dataTables.min.js}" src="../static/js/query/jquery.dataTables.min.js"></script>
+
+<script th:src="@{/js/activity-hold.js}" src="../static/js/activity-hold.js"></script>
+  
+  </body>
+</html>

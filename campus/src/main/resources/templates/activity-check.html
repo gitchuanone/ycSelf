@@ -13,13 +13,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     -->
+   <link rel="stylesheet" th:href="@{/css/yc-all.css}" href="../static/css/yc-all.css" />
+   <link rel="stylesheet" th:href="@{/css/yc-icon-family.css}" href="../static/css/yc-icon-family.css"  />
+   <link rel="stylesheet" th:href="@{/css/yc-bootstrap.min.css}" href="../static/css/yc-bootstrap.min.css" />
     
-    <link rel="stylesheet" th:href="@{/css/yc-all.css}" href="../static/css/yc-all.css">
-   <link rel="stylesheet" th:href="@{/css/yc-icon-family.css}" href="../static/css/yc-icon-family.css">
-   <link rel="stylesheet" th:href="@{/css/yc-bootstrap.min.css}" href="../static/css/yc-bootstrap.min.css" >
-    
-    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0"  th:href="@{/css/styles/shards-dashboards.1.1.0.min.css}"  href="../static/css/styles/shards-dashboards.1.1.0.min.css">
-    <link rel="stylesheet" th:href="@{/css/styles/extras.1.1.0.min.css}" href="../static/css/styles/extras.1.1.0.min.css">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0"  th:href="@{/css/styles/shards-dashboards.1.1.0.min.css}"  href="../static/css/styles/shards-dashboards.1.1.0.min.css"  />
+    <link rel="stylesheet" th:href="@{/css/styles/extras.1.1.0.min.css}" href="../static/css/styles/extras.1.1.0.min.css"  />
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
   <script  th:inline="javascript">
@@ -56,11 +55,12 @@
             <div id="show-error-info"> </div>
             	<!-- 审核自家学院的活动申请 -->
            		<div class="page-header row no-gutters py-4">
-	             <!--  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-	              </div> -->
-	                <h2 class="page-title" align="left">审核表</h2>
-	            </div>
+		             <!--  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+		              </div> -->
+		                <h2 class="page-title" align="left">审核表</h2>
+		            </div>
                 <div class="row" style="background:#FFF" >
+	                	
 	           			<table id="activity-check-going" class="table table-bordered table-striped"  width="100%" align="left"> 
 		              		<thead>
 		              			<tr>
@@ -79,10 +79,11 @@
             
             
             <!-- 教师审核结果  -->
-            <div class="page-header row no-gutters py-4">
-	                <h2 class="page-title" align="left">审核结果</h2>
-	            </div>
+            	<div class="page-header row no-gutters py-4">
+		                <h2 class="page-title" align="left">审核结果</h2>
+		            </div>
                 <div class="row" style="background:#FFF" >
+                	
 	           			<table id="teacher-activity-check-result" class="table table-bordered table-striped"  width="100%" align="left"> 
 		              		<thead>
 		              			<tr>
@@ -145,8 +146,6 @@
 <script th:src="@{/js/yc-Chart.min.js}" src="../static/js/yc-Chart.min.js"></script>
 <script th:src="@{/js/yc-shards.min.js}" src="../static/js/yc-shards.min.js"></script>
 <script th:src="@{/js/yc-jquery-sharrre.min.js}" src="../static/js/yc-jquery-sharrre.min.js"></script>
-  
-  
      
 <script th:src="@{/scripts/extras.1.1.0.min.js}" src="../static/scripts/extras.1.1.0.min.js"></script>
 <script th:src="@{/scripts/shards-dashboards.1.1.0.min.js}" src="../static/scripts/shards-dashboards.1.1.0.min.js"></script>

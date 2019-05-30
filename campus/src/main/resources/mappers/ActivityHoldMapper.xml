@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.campus.dao.ActivityHoldDao">
+	
+	<!-- #展示所有自身可以进行签到的活动 -->
+	<select id="showAllCouldSignAct"  parameterType="String"  resultType="Activity">
+	
+	select * from activity where activity_username=#{activityUsername} and ( (select DATE_ADD(activity_processtime,INTERVAL '5' day)) &lt; now()  )
+          and  activity_applystatus='3'  and  activity_endtime is null 
+          
+     <!-- 
+     select * from activity where activity_username=#{activityUsername} and ( activity_predtime=now() )
+          and  activity_applystatus='3'
+      -->     
+	</select>
+	 
+	  <!-- ================签到=============== -->
+	 <!-- #当第一个人签到时,表示活动已经进行了;修改活动开始执行时间 -->
+	 <update id="modifyActivityImpltimeByFirstOneSign" parameterType="Integer">
+		update activity set activity_impltime=now() where activity_id=#{activityId}
+	 </update>
+
+	<!-- #判断活动执行时间是否为空 -->
+	<select id="judgeActivityIlpltimeIsExistByActid"  parameterType="Integer"  resultType="Date">
+		select activity_impltime from activity where activity_id=#{activityId}
+	</select>
+
+	<!-- #先通过用户账号值查询用户id值 -->
+	<select id="findUseridByUsername" parameterType="String"  resultType="Integer">
+		select user_id  from user where  user_name=#{userName}
+	</select>
+
+	<!-- #通过用户id和活动id共同判断用户是否有预参与过 -->
+	<select id="findUserHaveApplyAdvanceActivityByActidAndUserid"  parameterType="Integer" resultType="ActUser" >
+		select * from act_user where act_id2=#{actId2} and user_id2=#{userId2} 
+	</select>
+
+	<!-- #若没有参与过预参与,则插入新数据; 设置为已经参与过预参与 -->
+	<insert id="saveSpotSignInfo" parameterType="Integer">
+		insert into act_user(act_id2,user_id2,user_applyjoin,user_endjoin)   values(#{actId2},#{userId2},'1','1')
+	</insert>
+
+	<!-- #如已经参与过预参与,则改变实际参与状态 -->
+	<update id="modifyUserHaveApplyAdvanceActivityActUserByActidAndUserid"  parameterType="Integer" >
+		update   act_user  set  user_endjoin='1'  where act_id2=#{actId2} and user_id2=#{userId2}
+	</update>
+	  
+	<!-- #判断用户是否已经参与过签到 -->
+	<select id="judgeUserHaveEndJoin"  parameterType="Integer"  resultType="ActUser">
+		select * from act_user where act_id2=#{actId2} and user_id2=#{userId2}  and  user_endjoin='1'
+	</select>
+	  
+	<!-- #签到成功,活动实际参与人数加一 -->
+	<update id="modifyActivityRealjoinAddOne" parameterType="Integer" >
+		update activity set activity_realjoin=(activity_realjoin+1) where activity_id=#{activityId}  
+	</update>
+	  
+	  
+	  <!-- #结束活动,更改结束时间 -->
+	  <update id="actEndModifyEndtime" parameterType="Integer">
+		update activity set activity_endtime=now()  where activity_id=#{activityId}	  
+	  </update>
+
+	<!-- #开启用户活动中活动评分标识 -->
+	<update id="startActUserPingfen"  parameterType="Integer">
+		update act_user set act_pingfen='1' where act_id2=#{actId2}	
+	</update>
+	  
+	  
+
+	  
+	  
+	  <!-- ====================================活动评分================================== -->
+	  
+	  <!-- #显示可以平分活动的具体信息 -->
+	  <select id="showAllCouldRemarkAct"  parameterType="Integer" resultType="Activity">
+		 select * from activity where activity_id=( 
+		      select act_id2 from act_user where user_id2=#{userId2} 
+		         and user_endjoin='1' and act_pingfen='1' 
+		   )
+	  </select>
+	  
+	  
+	   <!-- ============================================活动结束============================= -->
+	  <!-- #活动结束,奖惩措施 -->
+	<!-- #失信用户 -->
+	<select id="showBrokenPromises"  resultType="Integer">
+		select act_id2 from  act_user where user_applyjoin='1'  and  user_endjoin='0'
+	</select>
+		
+	<!-- #诚信用户,现场报道也可 -->
+	<select id="showKeepPromises"  resultType="Integer">
+		select act_id2 from  act_user where user_applyjoin='1'  and  user_endjoin='1'
+	</select>
+	
+	<!-- #失信用户,信用分减一 -->
+	<update id="reduceScoreOneByUserid"  parameterType="Integer">
+		update user set user_score=(user_score-1)  where user_id=#{userId}
+	</update>
+	
+	<!-- #失信用户,信用分加一 -->
+	<update id="addScoreOneByUserid"  parameterType="Integer">
+		update user set user_score=(user_score+1)  where user_id=#{userId}
+	</update>
+	  
+	  
+	  
+	       
+</mapper>

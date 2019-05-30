@@ -232,21 +232,23 @@ function  RefuseActivityCheckGoing(result){
 function checkDownFile(result){
 	//获取
 //	var dataId=$(obj).attr("upload-file-actid");
-//	var AAA=confirm("是否下载文件?");
-//	if(!AAA){  return;  };
+	var AAA=confirm("是否下载文件?");
+	if(!AAA){  return;  };
 	$.ajax({
 		url: "/activity-check/downloadFileByObjectId",
 		data: {"activityId":parseInt(result)},
 		type: "POST",
 		success: function(data){
 			if(data.status=="true"){ 
-				alert("操作成功!!!"); 
+				alert(data.msg); 
 			};
 			if(data.status=="error"){ 
 				alert(data.msg); 
 			};
 		},
-		error: function(data){  alert(data.msg);  }
+		error: function(data){  
+			alert(data.msg);  
+		}
 	});
 	
 }
@@ -390,5 +392,7 @@ function checkDownFile(result){
 //		},
 //		error: function(){   alert("操作失败!!!");   }
 //	});
-//	
 //};
+
+
+

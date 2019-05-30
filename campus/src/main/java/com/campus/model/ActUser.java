@@ -10,8 +10,9 @@ import javax.persistence.Table;
  * 活动和用户联合主键表
 	act_id2	int(11)
 	user_id2	int(11)
-	user_applyjoin	int(4)
-	user_endjoin	int(4)
+	user_applyjoin	int(2)
+	user_endjoin	int(2)
+	user_exitjoin	int(2)
 	act_innovatescore	double(2)
 	act_executescore	double(2)
 	act_processscore	double(2)
@@ -28,13 +29,14 @@ public class ActUser implements Serializable{
 	private Integer actId2;//活动主键
 	@Column(name="user_id2")
 	private Integer userId2;//用户主键
-	private Integer  user_applyjoin;//用户预参与
-	private Integer  user_endjoin;//用户实际参与
+	private Integer  userApplyjoin;//用户预参与
+	private Integer  userEndjoin;//用户实际参与
+	private Integer  userExitjoin;//用户退出登记
 	
-	private Double  act_innovatescore;//活动创意得分
-	private Double  act_executescore;//活动执行得分
-	private Double  act_processscore;//活动流程得分
-	private Double  act_finallyscore;//活动诸侯得分
+	private Double  actInnovatescore;//活动创意得分
+	private Double  actExecutescore;//活动执行得分
+	private Double  actProcessscore;//活动流程得分
+	private Double  actFinallyscore;//活动诸侯得分
 	//set and get
 	public Integer getActId2() {
 		return actId2;
@@ -48,49 +50,58 @@ public class ActUser implements Serializable{
 	public void setUserId2(Integer userId2) {
 		this.userId2 = userId2;
 	}
-	public Integer getUser_applyjoin() {
-		return user_applyjoin;
+	public Integer getUserApplyjoin() {
+		return userApplyjoin;
 	}
-	public void setUser_applyjoin(Integer user_applyjoin) {
-		this.user_applyjoin = user_applyjoin;
+	public void setUserApplyjoin(Integer userApplyjoin) {
+		this.userApplyjoin = userApplyjoin;
 	}
-	public Integer getUser_endjoin() {
-		return user_endjoin;
+	public Integer getUserEndjoin() {
+		return userEndjoin;
 	}
-	public void setUser_endjoin(Integer user_endjoin) {
-		this.user_endjoin = user_endjoin;
+	public void setUserEndjoin(Integer userEndjoin) {
+		this.userEndjoin = userEndjoin;
 	}
-	public Double getAct_innovatescore() {
-		return act_innovatescore;
+	public Integer getUserExitjoin() {
+		return userExitjoin;
 	}
-	public void setAct_innovatescore(Double act_innovatescore) {
-		this.act_innovatescore = act_innovatescore;
+	public void setUserExitjoin(Integer userExitjoin) {
+		this.userExitjoin = userExitjoin;
 	}
-	public Double getAct_executescore() {
-		return act_executescore;
+	public Double getActInnovatescore() {
+		return actInnovatescore;
 	}
-	public void setAct_executescore(Double act_executescore) {
-		this.act_executescore = act_executescore;
+	public void setActInnovatescore(Double actInnovatescore) {
+		this.actInnovatescore = actInnovatescore;
 	}
-	public Double getAct_processscore() {
-		return act_processscore;
+	public Double getActExecutescore() {
+		return actExecutescore;
 	}
-	public void setAct_processscore(Double act_processscore) {
-		this.act_processscore = act_processscore;
+	public void setActExecutescore(Double actExecutescore) {
+		this.actExecutescore = actExecutescore;
 	}
-	public Double getAct_finallyscore() {
-		return act_finallyscore;
+	public Double getActProcessscore() {
+		return actProcessscore;
 	}
-	public void setAct_finallyscore(Double act_finallyscore) {
-		this.act_finallyscore = act_finallyscore;
+	public void setActProcessscore(Double actProcessscore) {
+		this.actProcessscore = actProcessscore;
+	}
+	public Double getActFinallyscore() {
+		return actFinallyscore;
+	}
+	public void setActFinallyscore(Double actFinallyscore) {
+		this.actFinallyscore = actFinallyscore;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	//
 	@Override
 	public String toString() {
-		return "ActUSer [actId2=" + actId2 + ", userId2=" + userId2 + ", user_applyjoin=" + user_applyjoin
-				+ ", user_endjoin=" + user_endjoin + ", act_innovatescore=" + act_innovatescore + ", act_executescore="
-				+ act_executescore + ", act_processscore=" + act_processscore + ", act_finallyscore=" + act_finallyscore
-				+ "]";
+		return "ActUser [actId2=" + actId2 + ", userId2=" + userId2 + ", userApplyjoin=" + userApplyjoin
+				+ ", userEndjoin=" + userEndjoin + ", userExitjoin=" + userExitjoin + ", actInnovatescore="
+				+ actInnovatescore + ", actExecutescore=" + actExecutescore + ", actProcessscore=" + actProcessscore
+				+ ", actFinallyscore=" + actFinallyscore + "]";
 	}
-
+	
 }

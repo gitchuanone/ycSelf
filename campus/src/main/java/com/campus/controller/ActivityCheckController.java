@@ -28,8 +28,8 @@ public class ActivityCheckController {
 	//获得Springboot提供的mongodb的GridFS对象
 	@Autowired
 	private GridFsTemplate gridFsTemplate;
-	/*@Autowired
-	private GridFSBucket gridFSBucket;*/
+//	@Autowired
+//	private GridFSBucket gridFSBucket;
 	
 	
 	/** #审核员审查自己院里管理员申请的活动,结果集展示 /activity-check/check-act-show
@@ -95,18 +95,17 @@ public class ActivityCheckController {
 	 */
 	@RequestMapping("downloadFileByObjectId")
 	@ResponseBody
-	public AjaxResult downloadFileByObjectId(Integer activityId,HttpServletRequest request, HttpServletResponse response) {
+	public AjaxResult downloadFileByObjectId(Integer activityId,HttpServletRequest request,
+			HttpServletResponse response,GridFSBucket gridFSBucket) {
 		try {
-			GridFSBucket gridFSBucket = null;
+//			GridFSBucket gridFSBucket;
 			ActFile actFile=actService.isFileExitByActiviyId(activityId);
-			String objectId=actFile.getApplyFile1();
-			if(objectId==null) {
-				return AjaxResult.error("无文件");
+			if(actFile!=null) {
+				String objectId=actFile.getApplyFile1();
+				//下载文件
+//				FileUtil.downloadFile(objectId, gridFsTemplate, request, response);
+				FileUtil.downloadFileByFileId(objectId, request, response, gridFsTemplate, gridFSBucket);
 			}
-			//下载文件
-//			FileUtil.downloadFile(objectId, gridFsTemplate, request, response);
-			FileUtil.downloadFileByFileId(objectId, request, response, gridFsTemplate, gridFSBucket);
-			
 		} catch (Exception e) {
 			return AjaxResult.error();
 		}

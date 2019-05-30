@@ -1,0 +1,212 @@
+<!doctype html>
+<html class="no-js h-100" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 	
+    
+    <link rel="stylesheet" th:href="@{/css/yc-all.css}" href="../static/css/yc-all.css">
+   <link rel="stylesheet" th:href="@{/css/yc-icon-family.css}" href="../static/css/yc-icon-family.css">
+   <link rel="stylesheet" th:href="@{/css/yc-bootstrap.min.css}" href="../static/css/yc-bootstrap.min.css" >
+      
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0"  th:href="@{/css/styles/shards-dashboards.1.1.0.min.css}" href="../static/css/styles/shards-dashboards.1.1.0.min.css">
+    <link rel="stylesheet"  th:href="@{/css/styles/extras.1.1.0.min.css}"  href="../static/css/styles/extras.1.1.0.min.css">
+   	<script async defer src="https://buttons.github.io/buttons.js"></script>
+ 	
+    <link th:href="@{/css/bootstrap/jquery.dataTables.min.css}" href="../static/css/bootstrap/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+ 	
+ 	<script th:src="@{/js/query/jquery-3.3.1.min.js}" src="../static/js/query/jquery-3.3.1.min.js"></script>
+ 	<script th:src="@{/js/startScore.js}" src="../static/js/startScore.js"></script>
+ 	
+ <style>
+body,li,p,ul { 
+    margin: 0;
+    padding: 0;
+    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+ul, li, ol { list-style: none; }
+/* 重置文本格式元素 */
+a { text-decoration: none; cursor: pointer; color:#333333; font-size:14px;}
+a:hover { text-decoration: none; }
+.clearfix::after{ display:block; content:''; height:0; overflow:hidden; clear:both;} 
+/*星星样式*/
+.title{ font-size:14px; background:#dfdfdf; padding:10px; margin-bottom:10px;}
+.block{ width:100%; margin:0 0 20px 0; padding-top:10px; padding-left:50px; line-height:21px;}
+.block .star_score{ float:left;}
+.star_list{height:21px;margin:50px; line-height:21px;}
+.block p,.block .attitude{ padding-left:20px; line-height:21px; display:inline-block;}
+.block p span{ color:#C00; font-size:16px; font-family:Georgia, "Times New Roman", Times, serif;}
+.star_score { background:url(images/stark2.png); width:160px; height:21px;  position:relative; }
+.star_score a{ height:21px; display:block; text-indent:-999em; position:absolute;left:0;}
+.star_score a:hover{ background:url(images/stars2.png);left:0;}
+.star_score a.clibg{ background:url(images/stars2.png);left:0;}
+#startone .star_score { background:url(images/starky.png);}
+#startone .star_score a:hover{ background:url(images/starsy.png);left:0;}
+#startone .star_score a.clibg{ background:url(images/starsy.png);left:0;}
+#starttwo .star_score { background:url(images/starky.png);}
+#starttwo .star_score a:hover{ background:url(images/starsy.png);left:0;}
+#starttwo .star_score a.clibg{ background:url(images/starsy.png);left:0;}
+#startthree .star_score { background:url(images/starky.png);}
+#startthree .star_score a:hover{ background:url(images/starsy.png);left:0;}
+#startthree .star_score a.clibg{ background:url(images/starsy.png);left:0;}
+/*星星样式*/
+.show_number{ padding-left:50px; padding-top:20px;}
+.show_number li{ width:240px; border:1px solid #ccc; padding:10px; margin-right:5px; margin-bottom:20px;}
+.atar_Show{background:url(images/stark2.png); width:160px; height:21px;  position:relative; float:left; }
+.atar_Show p{ background:url(images/stars2.png);left:0; height:21px; width:134px;}
+.show_number li span{ display:inline-block; line-height:21px;}
+</style>   
+
+  </head>
+  <script  th:inline="javascript">
+    var user = [[${session.user}]];
+	if(user== null){ 
+		var pathArray = window.location.href.split("/");
+		var url = pathArray[0]+"//"+pathArray[2];
+		window.location.href = url; 
+		// https://localhost:8080/
+	}
+  </script>
+  <body class="h-100">
+    <div class="container-fluid">
+      <div class="row">
+      
+        					<!-- 引入左边菜单栏 -->
+		<div th:replace="common/extract-leftmenu :: extract-leftmenu"></div>
+        
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+        
+       						 <!-- 引入右上的头部栏 -->
+        <div th:replace="common/extract-top :: extract-top"></div>
+          
+          <!-- / .main-navbar -->
+      <div class="main-content-container container-fluid px-4">
+          	 
+        
+        
+	        <div class="page-header row no-gutters py-4">
+	              <h2 class="page-title" align="left">活动详情</h2>
+	      	</div>
+	        <div class="row" style="background:#FFF" >
+		   		<table id="show-pingfen-act" class="table table-bordered table-striped"  width="100%" align="left"> 
+		       		<thead>
+		       			<tr>
+		       			<td>主题</td>
+		       			<td>学院</td>
+		       			<td>负责人</td>
+		       			<td>举行时间</td>
+		       			<td>预计人数</td>
+		       			<td>与会人数</td>
+		       			<td>操作</td>
+		       			</tr>
+		       		</thead>
+		       		<tbody>
+		       		
+		       		</tbody>
+		     		</table>
+	       </div>
+               
+        
+     </div>
+     
+     
+     
+     
+      <!-- 评分模态框  -->
+       <div aria-labelledby="myModalLabel" class="modal fade bs-example-modal-lg" id="my-starts" role="dialog" >
+	        <div class="modal-dialog modal-lg" role="document">
+		            <div class="modal-content">
+		                <div class="modal-header">
+		                    <h4 class="modal-title" >活动评分</h4>  <!-- id="myModalLabel" -->
+		                </div>
+		                <div class="modal-body" id="modalBody">
+		                
+		                	<div class="row">
+		                        <div class="col">
+		                        	 <div id="startone" class="block clearfix">
+		                        	 	<div>
+								        	<p style="float:left;">活动创意得分  </p>
+								        </div>
+								        <div  class="star_score"></div>
+								        <div>
+								        	<p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
+								        </div>
+								    </div>
+								    <div id="starttwo" class="block clearfix">
+								    	<div>
+								        	<p style="float:left;">活动执行得分  </p>
+								        </div>
+								        <div  class="star_score"></div>
+								        <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
+								    </div>
+		                        	<div id="startthree" class="block clearfix">
+		                        		<div>
+								        	<p style="float:left;">活动流程得分  </p>
+								        </div>
+								        <div  class="star_score"></div>
+								        <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
+								    </div>
+								    <script>
+								     scoreFun($("#startone"),{
+								    	 fen_d:22,//每一个a的宽度
+								         ScoreGrade:5//a的个数 10或者
+								     })
+								     scoreFun($("#starttwo"),{
+								           fen_d:22,//每一个a的宽度
+								           ScoreGrade:5//a的个数 10或者
+								         })
+								      scoreFun($("#startthree"),{
+								           fen_d:22,//每一个a的宽度
+								           ScoreGrade:5//a的个数 10或者
+								         })
+								    </script>
+		                        	
+		                        </div>
+                     	 </div>
+		                
+		                </div>
+		                <div class="modal-footer">
+		                	<button class="btn btn-default" data-dismiss="modal" type="button"  id="remark-act-modalbuttom">确认</button>	
+		                    <button class="btn btn-default" data-dismiss="modal" type="button">取消</button>
+		                </div>
+		            </div>
+	        </div>
+      </div>
+     
+     
+     
+     
+         						 <!-- 页面右边最下面的角标行 -->
+          <footer th:replace="common/extract-rightend :: extract-rightend"></footer>
+          
+        </main>
+      </div>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<!-- 
+<script th:src="@{/js/yc-popper.min.js}" src="../static/js/yc-popper.min.js" ></script>
+<script th:src="@{/js/bootstrap/bootstrap.min.js}" src="../static/js/bootstrap/bootstrap.min.js"></script>
+ -->
+<!-- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
+ -->
+<script th:src="@{/js/yc-Chart.min.js}" src="../static/js/yc-Chart.min.js"></script>
+<script th:src="@{/js/yc-shards.min.js}" src="../static/js/yc-shards.min.js"></script>
+<script th:src="@{/js/yc-jquery-sharrre.min.js}" src="../static/js/yc-jquery-sharrre.min.js"></script>
+
+<script th:src="@{/scripts/extras.1.1.0.min.js}" src="../static/scripts/extras.1.1.0.min.js"></script>
+<script th:src="@{/scripts/shards-dashboards.1.1.0.min.js}" src="../static/scripts/shards-dashboards.1.1.0.min.js"></script>
+<script th:src="@{/js/query/jquery.dataTables.min.js}" src="../static/js/query/jquery.dataTables.min.js"></script>
+
+
+<script th:src="@{/js/activity-remark.js}" src="../static/js/activity-remark.js"></script>
+
+  </body>
+</html>

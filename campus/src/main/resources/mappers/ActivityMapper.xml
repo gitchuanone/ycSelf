@@ -15,24 +15,30 @@
 		</if>
 	</select>
 	
+	
+	
 	<!-- #预估计时间大于当天,并且公布时间距离当前时刻小于72小时 -->
 	<select id="showPredtimeThanTodayProtimeLess3Day"  resultType="Activity"  >
-		select * from  activity where activity_theme!='' and  activity_predtime &gt; now() AND (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &gt; now()
+		select * from  activity where activity_theme!='' and  activity_predtime &gt; now() 
+		    AND (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &gt; now()
 	</select>
 	 
 	 <!-- #当天日期超过公布日期2天且在3天内,审核状态公布出来 -->
 	 <select id="showCheckResultBy3day" resultType="Activity" >
-		select * from activity where (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &lt; now() and  (select DATE_ADD(activity_processtime,INTERVAL '5' day)) &gt; now()
+		select * from activity where (select DATE_ADD(activity_processtime,INTERVAL '2' day)) &lt; now() 
+		    and  (select DATE_ADD(activity_processtime,INTERVAL '5' day)) &gt; now()
 	 </select>
 	
 	<!-- #审核通过,活动进行时间在前2周内的活动展示出来 -->
 	<select id="showHoldResultLessThanDays"  resultType="Activity">
-		select * from activity where activity_endtime is not null and activity_applystatus=2 and (select DATE_ADD(activity_endtime,INTERVAL '14' day)) &gt; now()
+		select * from activity where activity_endtime is not null 
+		    and activity_applystatus=3 and (select DATE_ADD(activity_impltime,INTERVAL '14' day)) &gt; now()  
 	</select>
 	
 	<!-- #当天超过公布日期3天,且未超过预计时间,且活动未提前进行,结果展示 -->
 	<select id="showCheckEndResultActivity"  resultType="Activity">  
-		select * from activity where  activity_endtime is null  and  activity_predtime &gt; now() and (select DATE_ADD(activity_processtime,INTERVAL  '3' day)) &lt; now()
+		select * from activity where  activity_endtime is null  and  
+		    activity_predtime &gt; now() and (select DATE_ADD(activity_processtime,INTERVAL  '3' day)) &lt; now()
 	</select>
 	
 	
@@ -115,6 +121,7 @@
 		select * from  activity  where activity_username in (select user_name from user where (user_level=1 or user_level=2) and user_college=#{userCollege} ) 
 		      and  activity_applystatus=1	
 	</select>
+	
 	 <!-- #如果为超级管理员,可以查看所有的信息 -->
 	 <select id="checkAllApplyActivityUserlevel3"  resultType="Activity">
 			select * from activity where activity_applystatus=1
@@ -132,8 +139,8 @@
 
 		<!-- #展示教师执行过的审批 -->
 		<select id="teacherCheckActResultShow"  parameterType="String"  resultType="Activity">
-		select * from  activity  where activity_username in (select user_name from user where user_level=1 and user_college=#{userCollege}) and 
-   				(activity_applystatus=2  or activity_applystatus=3)
+		select * from  activity  where activity_username in (select user_name from user where (user_level=1  or  user_level=2) and user_college=#{userCollege})  
+		   and  (activity_applystatus=2  or activity_applystatus=3 )
 		</select>
 		
 	

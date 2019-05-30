@@ -133,38 +133,31 @@ public class FileUtil {
 	 * @param gridFsTemplate
 	 * @throws UnsupportedEncodingException 
 	 */
-	public static void downloadFile(String fileId,GridFsTemplate gridFsTemplate,
-			HttpServletRequest request,HttpServletResponse response) throws Exception {
-		
-		
-		/*
-		Query query = Query.query(Criteria.where("_id").is(fileId));
-		//查询单个文件
-//		GridFSDBFile gfsfile = gridFsTemplate.findOne(query);
-		com.mongodb.client.gridfs.model.GridFSFile gridFsFile = gridFsTemplate.findOne(query);
-//		GridFsResource resource = gridFsTemplate.getResource(findOne.getId().toString());
-        com.mongodb.client.gridfs.model.GridFSFile findOne = gridFsTemplate.findOne(query);
-		if (gridFsFile == null) {
-			 throw new ClassCastException("文件查找失败");
-        }
-        String fileName = findOne.getFilename().replace(",", "");
-        //处理中文文件名乱码
-        if (request.getHeader("User-Agent").toUpperCase().contains("MSIE") ||
-                request.getHeader("User-Agent").toUpperCase().contains("TRIDENT")
-                || request.getHeader("User-Agent").toUpperCase().contains("EDGE")) {
-            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
-        } else {
-            //非IE浏览器的处理：
-            fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-        }
-        // 通知浏览器进行文件下载
-        response.setContentType(findOne.getContentType());
-        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-//        findOne.writeTo(response.getOutputStream());
-        InputStream inputStream = resource.getInputStream();
-        */
-		
-    }
+//	public static void downloadFile(String fileId,GridFsTemplate gridFsTemplate,
+//			HttpServletRequest request,HttpServletResponse response) throws Exception {
+//
+//		 Query query = Query.query(Criteria.where("_id").is(fileId));
+//	        // 查询单个文件
+//	        GridFSDBFile gfsfile = gridFsTemplate.findOne(query);
+//	        if (gfsfile == null) {
+//	            return;
+//	        }
+//	        String fileName = gfsfile.getFilename().replace(",", "");
+//	        //处理中文文件名乱码
+//	        if (request.getHeader("User-Agent").toUpperCase().contains("MSIE") ||
+//	                request.getHeader("User-Agent").toUpperCase().contains("TRIDENT")
+//	                || request.getHeader("User-Agent").toUpperCase().contains("EDGE")) {
+//	            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+//	        } else {
+//	            //非IE浏览器的处理：
+//	            fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+//	        }
+//	        // 通知浏览器进行文件下载
+//	        response.setContentType(gfsfile.getContentType());
+//	        response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+//	        gfsfile.writeTo(response.getOutputStream());
+//		
+//    }
 	
 	
 	
@@ -206,10 +199,11 @@ public class FileUtil {
      */
     public static void downloadFileByFileId(String fileId, HttpServletRequest request, HttpServletResponse response,
     		GridFsTemplate gridFsTemplate,GridFSBucket gridFSBucket) throws IOException{
-        Query query = Query.query(Criteria.where("_id").is(fileId));
+    	
+    	Query query = Query.query(Criteria.where("_id").is(fileId));
         com.mongodb.client.gridfs.model.GridFSFile file = gridFsTemplate.findOne(query);
         if(file==null){
-            throw new RuntimeException("无文件");
+            return  ;
         }
         GridFSDownloadStream in = gridFSBucket.openDownloadStream(file.getObjectId());
         GridFsResource resource = new GridFsResource(file,in);
@@ -226,12 +220,13 @@ public class FileUtil {
             fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
         } else {
             //非IE浏览器的处理：
-//            fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+//          fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
             fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
         }
         // 通知浏览器进行文件下载
         response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
         IOUtils.copy(resource.getInputStream(),response.getOutputStream());
+        
     }
 
 	

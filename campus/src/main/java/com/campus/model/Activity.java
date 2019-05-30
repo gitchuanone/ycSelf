@@ -29,6 +29,7 @@ import javax.persistence.Table;
 	activity_username	varchar(20)
 	apply_filename
 	reply_filename
+	activity_impltime
  * @author Administrator
  */
 @Entity
@@ -59,7 +60,14 @@ public class Activity  implements Serializable{
 	private String activityUsername; //
 	private String applyFilename;//活动申请文件名称
 	private String replyFilename;//活动回复文件民称
+	private Date activityImpltime;//活动正式进行时间
 	//
+	public Date getActivityImpltime() {
+		return activityImpltime;
+	}
+	public void setActivityImpltime(Date activityImpltime) {
+		this.activityImpltime = activityImpltime;
+	}
 	public Integer getActivityId() {
 		return activityId;
 	}
@@ -188,7 +196,8 @@ public class Activity  implements Serializable{
 				+ ", activityExecutescore=" + activityExecutescore + ", activityProcessscore=" + activityProcessscore
 				+ ", activityFinallyscore=" + activityFinallyscore + ", activityOrgcollege=" + activityOrgcollege
 				+ ", activityApplystatus=" + activityApplystatus + ", activityUsername=" + activityUsername
-				+ ", applyFilename=" + applyFilename + ", replyFilename=" + replyFilename + "]";
+				+ ", applyFilename=" + applyFilename + ", replyFilename=" + replyFilename + ", activityImpltime="
+				+ activityImpltime + "]";
 	}
 	
 	

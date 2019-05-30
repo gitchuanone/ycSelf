@@ -70,4 +70,6 @@ public interface ActivityDao {
 	List<Activity> teacherCheckActResultShow(String userCollege);
 	
 	
+	
+	
 }

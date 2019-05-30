@@ -1,6 +1,7 @@
 package com.campus.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
   	college_id	int(11)
 	college_name	varchar(20)
 	college_state	int(2)
+	college_foundtime
  */
 @Entity
 @Table(name="college")
@@ -25,7 +27,13 @@ public class College  implements Serializable{
 	
 	private String collegeName;//学院名称
 	private int collegeState;//学院状态值;  0-消失,1-存在
+	private Date collegeFoundtime;
 	//set  and get
+	@Override
+	public String toString() {
+		return "College [collegeId=" + collegeId + ", collegeName=" + collegeName + ", collegeState=" + collegeState
+				+ ", collegeFoundtime=" + collegeFoundtime + "]";
+	}
 	public Integer getCollegeId() {
 		return collegeId;
 	}
@@ -44,15 +52,16 @@ public class College  implements Serializable{
 	public void setCollegeState(int collegeState) {
 		this.collegeState = collegeState;
 	}
+	public Date getCollegeFoundtime() {
+		return collegeFoundtime;
+	}
+	public void setCollegeFoundtime(Date collegeFoundtime) {
+		this.collegeFoundtime = collegeFoundtime;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	//
-	@Override
-	public String toString() {
-		return "College [collegeId=" + collegeId + ", collegeName=" + collegeName + ", collegeState=" + collegeState
-				+ "]";
-	}
+	
 	
 	
 	
