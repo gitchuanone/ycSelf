@@ -164,8 +164,11 @@ public class UserController {
 	 */
 	@RequestMapping("manage-userinfo")
 	@ResponseBody
-	public List<User> manageShowUserInfo(){
-		List<User> list=userService.showAllUser();
+	public List<User> manageShowUserInfo(HttpSession session){
+		//获取用户所属学院
+		User user = (User) session.getAttribute("user");
+		String collegeName=user.getUserCollege();
+		List<User> list=userService.showAllSelfCollegeUser(collegeName);
 		return list;
 	}
 	

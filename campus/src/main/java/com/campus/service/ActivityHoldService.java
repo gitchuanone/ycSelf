@@ -37,12 +37,6 @@ public interface ActivityHoldService {
 	 void modifyActivityRealjoinAddOne(Integer activityId);
 	 
 	 
-	 /**
-	  * 活动评分
-	  */
-	 /**#显示可以平分活动的具体信息 */
-	 List<Activity> showAllCouldRemarkAct(Integer userId2);
-	 
 	//======================活动结束===================
 	 
 	 /**#结束活动,更改结束时间*/
@@ -61,6 +55,27 @@ public interface ActivityHoldService {
 	 
 	 
 	 
+	//====================活动评分===============================
+	
+	 /**#显示可以平分活动的具体信息 */
+	 List<Activity> showAllCouldRemarkAct(Integer userId2);
+	/**#根据用户id和活动id值; 存入用户对活动创意;执行力;流程的评分*/
+	 void saveUserRemarkActScores(ActUser actuser);
+	 /**#评价完后活动,改变活动开启状态为关闭状态*/
+	 void modifyActUserActpingfenStatusToClose(ActUser actuser);
+	 /**#直接修改活动表中的得分; 创意得分*/
+	 void modifyByActUserAvgToActivityInnovatescore(Integer  actId2);
+	 /** #直接修改活动表中的得分;  执行力得分*/
+	 void modifyByActUserAvgToActivityExecutescore(Integer  actId2);
+	 /** #直接修改活动表中的得分;  流程得分*/
+	 void modifyByActUserAvgToActivityProcessscore(Integer  actId2);
+	 /**#根据前三项得分,计算出总分的平均分*/
+	 Double getThreeScoresAvgFromActivity(Integer  actId2);
+	 /** #得到平均分,在进行最终分的赋值*/
+	 void saveThreeScoresAvgToActivityFinallScore( Double finallyScore, Integer actId2);
+		 
+	
+	
 	 
 	 
 }

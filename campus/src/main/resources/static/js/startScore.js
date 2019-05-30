@@ -32,7 +32,9 @@ function scoreFun(object,opts){
 		$(this).click(function(){
 			now_cli=index;show(index,$(this))
 		});
-		$(this).mouseenter(function(){show(index,$(this))});
+		$(this).mouseenter(function(){
+			show(index,$(this))
+		});
 		$(this).mouseleave(function(){
 			if(now_cli>=0){var scor=preA*(parseInt(now_cli)+1);
 			startParent.find("a").removeClass("clibg");

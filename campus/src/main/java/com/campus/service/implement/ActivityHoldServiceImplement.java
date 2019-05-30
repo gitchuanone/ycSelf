@@ -99,6 +99,41 @@ public class ActivityHoldServiceImplement implements ActivityHoldService {
 		actDao.addScoreOneByUserid(userId);
 		
 	}
+
+	@Override
+	public void saveUserRemarkActScores(ActUser actuser) {
+		actDao.saveUserRemarkActScores(actuser);
+	}
+
+	@Override
+	public void modifyActUserActpingfenStatusToClose(ActUser actuser) {
+		actDao.modifyActUserActpingfenStatusToClose(actuser);
+	}
+
+	@Override
+	public void modifyByActUserAvgToActivityInnovatescore(Integer actId2) {
+		actDao.modifyByActUserAvgToActivityInnovatescore(actId2);
+	}
+
+	@Override
+	public void modifyByActUserAvgToActivityExecutescore(Integer actId2) {
+		actDao.modifyByActUserAvgToActivityExecutescore(actId2);
+	}
+
+	@Override
+	public void modifyByActUserAvgToActivityProcessscore(Integer actId2) {
+		actDao.modifyByActUserAvgToActivityProcessscore(actId2);
+	}
+
+	@Override
+	public Double getThreeScoresAvgFromActivity(Integer actId2) {
+		return actDao.getThreeScoresAvgFromActivity(actId2);
+	}
+
+	@Override
+	public void saveThreeScoresAvgToActivityFinallScore(Double finallyScore,Integer actId2) {
+		actDao.saveThreeScoresAvgToActivityFinallScore(finallyScore,actId2);
+	}
 	
 	
 	

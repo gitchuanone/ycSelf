@@ -73,10 +73,11 @@
                -->
             </div>
            
-           <!-- 展示可以进行签到的活动 -->
-           <div class="page-header row no-gutters py-4">
-	                <h2 class="page-title" align="left">活动详情</h2>
-           		 </div>
+           
+           	<!-- 展示可以进行签到的活动 -->
+	           <div class="page-header row no-gutters py-4">
+		                <h2 class="page-title" align="left">活动详情</h2>
+	           </div>
              <div class="row" style="background:#FFF;display:none"  id="show-manual-sign-activity-div"  >
         		<table id="show-all-could-sign-activity-table" class="table table-bordered table-striped"  width="100%" align="left"> 
             		<thead>
@@ -95,8 +96,29 @@
             		</tbody>
           		</table>
             </div>
-			           	
-           	
+	           
+	      <div style="width:100%; height:50px; border:1px solid #FFF;background:#FFF"></div>
+		<div class="page-header row no-gutters py-4">
+	            <h2 class="page-title" align="left"></h2>
+         </div>	       
+   
+          <div class="row">  
+	            <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+	              <div class="card card-small card-post card-post--1">
+	              	 	<div  class="page-header row no-gutters py-4">  <!-- class="page-header row no-gutters py-4" -->
+	                		<h2 class="page-title" align="center">投票</h2>
+           				</div>
+	                 <div class="card-body">
+	                 	<input type="radio" name="group" value="1"/>一组	<br/>
+	                 	<input type="radio" name="group" value="2"/>二组	<br/>
+	                 	<input type="radio" name="group" value="3"/>三组	<br/>
+	                 </div>
+	                 	<button type="button" class="btn btn-accent"  data-toggle="modal" >提交</button>
+	              </div>
+	            </div>
+          </div>
+	           
+	           
 	           
            <!-- 参加签到人员 -->
            <!-- 
@@ -118,22 +140,6 @@
           		</table>
             </div>
             -->
-           
-            <div class="page-header row no-gutters py-4">
-	                <h2 class="page-title" align="left">东方嘉盛</h2>
-            </div>
-             <div class="row" style="background:#FFF" >
-        		<table  class="table table-bordered table-striped"  width="100%" align="left"> 
-            		<thead>
-            			<tr>
-            			<td>主题</td>
-            			<td>学院</td>
-            			<td>负责人</td>
-            			</tr>
-            		</thead>
-          		</table>
-            </div>
-            
           
           							<!-- 页面右边最下面的角标行 -->
           <footer th:replace="common/extract-rightend :: extract-rightend"></footer>		

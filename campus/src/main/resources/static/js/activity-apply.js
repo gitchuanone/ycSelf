@@ -29,6 +29,50 @@ $(function(){
 		}
 	}); 
 	
+	//预参与申请编辑提交路径
+	$("#activity-advance-apply-button").on('click',function(){
+		var AAA=confirm("确认提交?");
+		if(!AAA){   
+			return  false;  
+		};
+		//判断主题
+		if($("#activityTheme1").val()=="" || $("#activityTheme1").val()==null){
+			alert("主题不能为空!")
+			return  false;
+		}
+		//判断描述
+		if($("#activityDescription1").val()=="" || $("#activityDescription1").val()==null){
+			alert("主题不能为空!")
+			return  false;
+		}
+		//判断预计时间
+		if($("#click-activity-advance-apply-modal").find("input[name='activityPredtime1']").val()==""){
+			alert("时间为空或不完整");
+			return  false;
+		}
+		var param={};
+		param.activityUsername=$("#activityUsername1").val();
+		param.activityTheme=$("#activityTheme1").val();
+		param.activityOrgcollege=getCheckboxVal('activityOrgcollege1');
+		param.activityOrganizer=$("#activityOrganizer1").val();
+		param.activityDescription=$("#activityDescription1").val();
+		param.activityPredtime=datetimeLocalToDate($("#click-activity-advance-apply-modal").find("input[name='activityPredtime1']").val()),
+		$.ajax({
+			type:"POST",
+			url: "/activity-apply/advanceapply",
+			data: param,
+			success: function(result){
+				 if(result.status=='true'){
+					 alert("操作成功!");
+					 window.location.reload();
+				 }else if(result.status=='error'){
+					 alert(result.msg);
+				 }
+			 }
+		});
+		
+	});
+	
 	 //申请预参与活动的信息展示 
 	applyActivityPredActivityShowInit();
 	
@@ -102,48 +146,7 @@ function clickActivityAdvanceApplyModalInit(){
 		//初始化弹出模态框
 		$("#click-activity-advance-apply-modal").modal("show");
 		
-		//预参与申请编辑提交路径
-		$("#activity-advance-apply-button").on('click',function(){
-			var AAA=confirm("确认提交?");
-			if(!AAA){   
-				return  false;  
-			};
-			//判断主题
-			if($("#activityTheme1").val()=="" || $("#activityTheme1").val()==null){
-				alert("主题不能为空!")
-				return  false;
-			}
-			//判断描述
-			if($("#activityDescription1").val()=="" || $("#activityDescription1").val()==null){
-				alert("主题不能为空!")
-				return  false;
-			}
-			//判断预计时间
-			if($("#click-activity-advance-apply-modal").find("input[name='activityPredtime1']").val()==""){
-				alert("时间为空或不完整");
-				return  false;
-			}
-			var param={};
-			param.activityUsername=$("#activityUsername1").val();
-			param.activityTheme=$("#activityTheme1").val();
-			param.activityOrgcollege=getCheckboxVal('activityOrgcollege1');
-			param.activityOrganizer=$("#activityOrganizer1").val();
-			param.activityDescription=$("#activityDescription1").val();
-			param.activityPredtime=datetimeLocalToDate($("#click-activity-advance-apply-modal").find("input[name='activityPredtime1']").val()),
-			$.ajax({
-				type:"POST",
-				url: "/activity-apply/advanceapply",
-				data: param,
-				success: function(result){
-					 if(result.status=='true'){
-						 alert("操作成功!");
-					 }else if(result.status=='error'){
-						 alert(result.msg);
-					 }
-				 }
-			});
-			
-		});
+		
 	
 };
 
@@ -222,6 +225,7 @@ function deleteApplyAdvanceActivit(result){
 		success: function(data){
 			if(data.status=="true"){
 				alert("操作成功!");
+				window.location.reload();
 			}
 			if(data.status=="error"){
 				alert(data.msg);

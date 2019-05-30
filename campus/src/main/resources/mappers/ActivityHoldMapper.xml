@@ -14,7 +14,7 @@
       -->     
 	</select>
 	 
-	  <!-- ================签到=============== -->
+	  <!-- =========================================签到======================================= -->
 	 <!-- #当第一个人签到时,表示活动已经进行了;修改活动开始执行时间 -->
 	 <update id="modifyActivityImpltimeByFirstOneSign" parameterType="Integer">
 		update activity set activity_impltime=now() where activity_id=#{activityId}
@@ -66,20 +66,7 @@
 		update act_user set act_pingfen='1' where act_id2=#{actId2}	
 	</update>
 	  
-	  
-
-	  
-	  
-	  <!-- ====================================活动评分================================== -->
-	  
-	  <!-- #显示可以平分活动的具体信息 -->
-	  <select id="showAllCouldRemarkAct"  parameterType="Integer" resultType="Activity">
-		 select * from activity where activity_id=( 
-		      select act_id2 from act_user where user_id2=#{userId2} 
-		         and user_endjoin='1' and act_pingfen='1' 
-		   )
-	  </select>
-	  
+	 
 	  
 	   <!-- ============================================活动结束============================= -->
 	  <!-- #活动结束,奖惩措施 -->
@@ -104,6 +91,59 @@
 	</update>
 	  
 	  
+	  <!-- ====================================活动评分================================== -->
+	  
+	  <!-- #显示可以平分活动的具体信息 -->
+	  <select id="showAllCouldRemarkAct"  parameterType="Integer" resultType="Activity">
+		 select * from activity where activity_id=( 
+		      select act_id2 from act_user where user_id2=#{userId2} 
+		         and user_endjoin='1' and act_pingfen='1' 
+		   )
+	  </select>  
+	  
+	  <!-- #根据用户id和活动id值; 存入用户对活动创意;执行力;流程的评分 -->
+	  <update id="saveUserRemarkActScores"  parameterType="ActUser">
+			update act_user  set  act_innovatescore=#{actInnovatescore},act_executescore=#{actExecutescore},act_processscore=#{actProcessscore}  
+			     where act_id2=#{actId2}  and user_id2=#{userId2}
+	  </update>
+	  
+	  <!-- #评价完后活动,改变活动开启状态为关闭状态 -->
+	  <update id="modifyActUserActpingfenStatusToClose"  parameterType="ActUser">
+			update act_user  set act_pingfen='0'  where act_id2=#{actId2}  and user_id2=#{userId2}
+	  </update>
+	  
+	  <!-- #直接修改活动表中的得分; 创意得分-->
+	  <update id="modifyByActUserAvgToActivityInnovatescore"  parameterType="Integer">
+			update activity set activity_innovatescore=( 
+			     select ROUND(avg(act_innovatescore),4)  from act_user where act_id2=#{userId2} 
+			 ) where  activity_id=#{userId2}
+	  </update>
+	  
+	  
+	  <!-- #直接修改活动表中的得分;  执行力得分 -->
+	  <update id="modifyByActUserAvgToActivityExecutescore"  parameterType="Integer">
+			update activity set activity_executescore=( 
+			      select ROUND(avg(act_executescore),4) from act_user where act_id2=#{actId2}  
+			) where  activity_id=#{actId2}
+	  </update>
+	  
+	  <!-- #直接修改活动表中的得分;  流程得分 -->
+	  <update id="modifyByActUserAvgToActivityProcessscore"  parameterType="Integer">
+			update activity set activity_processscore=( 
+			      select ROUND(avg(act_processscore),4) from act_user where act_id2=#{actId2} 
+			 ) where  activity_id=#{actId2}
+	  </update>
+	  
+	  <!-- #根据前三项得分,计算出总分的平均分 -->
+	  <select id="getThreeScoresAvgFromActivity"  parameterType="Integer"  resultType="Double">
+			select ROUND(sum(activity_innovatescore + activity_executescore + activity_processscore)/3,4)   
+			  from  activity  where  activity_id=#{actId2}	  
+	  </select>
+	  
+	  <!-- #得到平均分,在进行最终分的赋值 -->
+	  <update id="saveThreeScoresAvgToActivityFinallScore" >
+			update activity set activity_finallyscore=#{finallyScore}  where activity_id=#{actId2}	  
+	  </update>
 	  
 	       
 </mapper>

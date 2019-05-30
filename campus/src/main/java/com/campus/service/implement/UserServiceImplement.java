@@ -14,8 +14,8 @@ public class UserServiceImplement implements UserService{
 	private UserDao userDao;
 	
 	@Override
-	public List<User> showAllUser() {
-		List<User> list=userDao.showAllUser();
+	public List<User> showAllSelfCollegeUser(String collegeName) {
+		List<User> list=userDao.showAllSelfCollegeUser(collegeName);
 		return list;
 	}
 

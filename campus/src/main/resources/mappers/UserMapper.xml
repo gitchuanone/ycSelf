@@ -7,9 +7,9 @@
        				values(#{userName},#{userPwd},#{userNickname},#{userCollege},'0','0',now())
     </insert> 
 	
-	<!-- 查询所有 -->
-    <select id="showAllUser"  resultType="User">
-    	select  *  from user  where user_level !=3
+	<!-- 查询所有自己学院的学生 -->
+    <select id="showAllSelfCollegeUser"  resultType="User"  parameterType="String">
+    	select  *  from user  where  user_college=#{userCollege}
     </select>
     
     <!-- 根据传入的账户密码查询用户 -->

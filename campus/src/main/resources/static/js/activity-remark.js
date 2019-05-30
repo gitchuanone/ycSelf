@@ -5,6 +5,11 @@ $(function(){
 	//展示所有可以平分的活动
 	showAllCouldRemarkAct();
 	
+	//提交评分按钮
+	$("#remark-act-modalbuttom").on('click',function(){
+		getScoresByStarts($(this).attr("data-param"));
+	});
+	
 });
 
 /**
@@ -79,31 +84,53 @@ function showAllCouldRemarkAct(){
  * @returns
  */
 function userRemarkAct(result){
+	//弹出模态框
 	$("#my-starts").modal("show");
+	var data=parseInt(result);
 	
-//	var dataId=$(obj).attr("upload-file-actid");
-//	var username=$("#userId-"+result).val();
-//	var param={};
-//	param.actId2=parseInt(result);
-//	param.userName=username;
-//	$.ajax({
-//		url: "/activity-hold/userRemarkAct",
-//		data: param,
-//		type: "POST",
-//		success: function(data){
-//			if(data.status=="true"){ 
-//				alert("操作成功!!!");
-////				window.location.reload();
-//			};
-//			if(data.status=="error"){ 
-//				alert(data.msg);
-//			};
-//		},
-//		error: function(data){  alert(data.msg);  }
-//	});
+	$("#remark-act-modalbuttom").attr("data-param",result);
+}
+/**
+ * 提交评分
+ * @param result
+ * @returns
+ */
+function  getScoresByStarts(result){
+	//获取评分值
+	var s1=document.getElementById("one-score").innerHTML;
+	var s2=document.getElementById("two-score").innerHTML;
+	var s3=document.getElementById("three-score").innerHTML;
+	
+	if(s1==0 || s2==0 || s3==0){
+		alert("评分不能为空");
+		return false;
+	}
+	
+	//往后台封装数据值
+	var param={};
+	param.actId2=parseInt(result);
+	param.actInnovatescore=s1;
+	param.actExecutescore=s2;
+	param.actProcessscore=s3;
+	$.ajax({
+		url: "/activity-hold/getScoresByStarts",
+		data: param,
+		type: "POST",
+		success: function(data){
+			if(data.status=="true"){ 
+				alert("操作成功!!!");
+				window.location.reload();
+			};
+			if(data.status=="error"){ 
+				alert(data.msg);
+			};
+		},
+		error: function(data){  alert(data.msg);  }
+	});
 	
 	
 }
+
 
 
 //======================================================================

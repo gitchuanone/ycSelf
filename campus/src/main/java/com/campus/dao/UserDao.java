@@ -8,10 +8,10 @@ import org.apache.ibatis.annotations.Param;
 import com.campus.model.User;
 
 public interface UserDao {
-	/**查询所有信息
-	 * select  *  from user
+	/** 查询所有自己学院的学生
+	 * select  *  from user  where  user_college=#{userCollege}
 	 * */
-	public List<User> showAllUser();
+	public List<User> showAllSelfCollegeUser(String userCollege);
 	
 	/**根据账户和密码查询
 	 * select  *  from user  where  user_name=#{userName}  and  user_password=#{userPwd}

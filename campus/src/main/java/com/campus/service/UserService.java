@@ -6,8 +6,8 @@ import java.util.List;
 import com.campus.model.User;
 
 public interface UserService {
-	/**查询所有用户信息*/
-	List<User> showAllUser();
+	/**查询所有自己学院学生信息*/
+	public List<User> showAllSelfCollegeUser(String userCollege);
 	/**根据用户账户和密码查询用户*/
 	User showUserInfoByNamePwd(String userName,String userPassword);
 	/**插入新的信息*/

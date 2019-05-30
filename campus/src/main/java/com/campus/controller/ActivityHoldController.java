@@ -144,6 +144,35 @@ public class ActivityHoldController {
 		return holdService.showAllCouldRemarkAct(userId);
 	}
 	
-	
+	/**
+	 * 用户对活动的评分; 		/activity-hold/getScoresByStarts 	
+	 * @return
+	 */
+	@RequestMapping("getScoresByStarts")
+	@ResponseBody
+	public AjaxResult getScoresByStarts(ActUser actuser,HttpSession session) {
+		try {
+			//获取用户id值
+			User user = (User) session.getAttribute("user");
+			Integer userId2=user.getUserId();
+			//1)将前端获取到的值和session中取出的userid存入实体对象
+			actuser.setUserId2(userId2);
+			//2)将评分数据存入用户活动表中
+			holdService.saveUserRemarkActScores(actuser);
+			//3)将获取到的创意,执行力,流程得分存入用户活动表中
+			Integer actId2=actuser.getActId2();
+			holdService.modifyByActUserAvgToActivityInnovatescore(actId2);
+			holdService.modifyByActUserAvgToActivityExecutescore(actId2);
+			holdService.modifyByActUserAvgToActivityProcessscore(actId2);
+			//3.2)在关闭评分按钮
+			holdService.modifyActUserActpingfenStatusToClose(actuser);
+			//4)由活动表的三种得分得到平均分;在存入活动表中
+			Double finallyScore=holdService.getThreeScoresAvgFromActivity(actId2);
+			holdService.saveThreeScoresAvgToActivityFinallScore(finallyScore, actId2);
+		} catch (Exception e) {
+			return AjaxResult.error();
+		}
+		return AjaxResult.oK();
+	}
 	
 }

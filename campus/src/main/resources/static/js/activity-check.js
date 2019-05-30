@@ -14,7 +14,7 @@ $(function(){
 		
 		var CCC=$("#getUserLevel").val();
 		//用户权限达级,可以实现管理用户信息
-//		initUserInfoManageTable();
+		initUserInfoManageTable();
 	
 //		$("#user-info-manage-div").css({"display":"block"});
 		//重置所有用户的信用分
@@ -283,74 +283,61 @@ function checkDownFile(result){
 /*
  * 初始化用户信息的  datatables 
  */
-//function initUserInfoManageTable(){
-//	$("#user-info-manage").DataTable(
-//			{
-//				"aLengthMenu": [ 5, 10,20],//设置显示条数
-////				"scrollX":true,
-//				"responsive": false,
-//		        "bAutoWidth": true, //自动计算列宽
-//	    		"ordering": true, //排序
-//			    "pageLength": 10,　//初始化显示几条数据
-//			    "pagingType": "full_numbers",
-//			    "language": {　　// 这是修改语言的显示
-//			        "paginate": {
-//			            first: "首条",
-//			            previous: "前一页",
-//			            next: "下一页",
-//			            last: "末页"
-//			        },
-//			        "info": "第_PAGE_页,共_PAGES_页",
-//			        "infoEmpty": "未找到相关数据",
-//			        "search": "关键字",
-//			        "zeroRecords": "未找到相关数据",
-//			        "decimal": ".",
-//			        "thousands": ","
-//			    },
-//			    
-//			    //ajax实现数据的传递的再现
-//			    ajax:{
-//	                url: "/user/manage-userinfo",//修改路径即可
-//	                type: 'POST',
-//	                //用于处理服务器端返回的数据。 dataSrc是DataTable特有的
-//	                dataSrc: function (myJson) {
-//	                    if (myJson.timeout) {
-//	                        return "";
-//	                    }
-//	                    return myJson;
-//	                }
-//			    },
-//			    columns: [　//这个是显示到界面上的个数据　格式为 {data:'显示的字段名'}
-//			        {"data":'userName'},
-//			        {"data":'userNickname'},
-//			        {"data":'userCollege'},
-//			        {"data":'userScore'},
-//			        {"data":'userLevel',
-//			        	render : function(data){
-//			        		if(data==0){
-//			        			return "普通用户";
-//			        		}else if(data==1){
-//			        			return "管理员";
-//			        		}else if(data==2){
-//			        			return "审核员";
-//			        		}
-//			        	}
-//			        },
-//			        {"data":'userFoundtime',
-//			        	render:function(data){
-//		        			return data.split("T")[0]+" "+data.split("T")[1].split(".")[0];
-//			        	}
-//			        },
-//			        {"data":'userId',
-//			        	render:function(data){
-//			        		return '<button type="button" class="btn btn-accent"  data-user-id="'+data+'" onclick="riseUserlevel(this)">升级</button>'+
-//			        		'&nbsp;&nbsp;<button type="button" class="btn btn-accent"  data-user-id2="'+data+'" onclick="downUserLevel(this)">降级</button>';
-//			        	}
-//			        },
-//			    ]
-//			
-//		});
-//};
+function initUserInfoManageTable(){
+	$("#user-info-manage").DataTable(
+			{
+				"aLengthMenu": [ 5, 10,20],//设置显示条数
+//				"scrollX":true,
+				"responsive": false,
+		        "bAutoWidth": true, //自动计算列宽
+	    		"ordering": true, //排序
+			    "pageLength": 10,　//初始化显示几条数据
+			    "pagingType": "full_numbers",
+			    "language": {　　// 这是修改语言的显示
+			        "paginate": {
+			            first: "首条",
+			            previous: "前一页",
+			            next: "下一页",
+			            last: "末页"
+			        },
+			        "info": "第_PAGE_页,共_PAGES_页",
+			        "infoEmpty": "未找到相关数据",
+			        "search": "关键字",
+			        "zeroRecords": "未找到相关数据",
+			        "decimal": ".",
+			        "thousands": ","
+			    },
+			    
+			    //ajax实现数据的传递的再现
+			    ajax:{
+	                url: "/user/manage-userinfo",//修改路径即可
+	                type: 'POST',
+	                //用于处理服务器端返回的数据。 dataSrc是DataTable特有的
+	                dataSrc: function (myJson) {
+	                    if (myJson.timeout) {
+	                        return "";
+	                    }
+	                    return myJson;
+	                }
+			    },
+			    columns: [　//这个是显示到界面上的个数据　格式为 {data:'显示的字段名'}
+			        {"data":'userName'},
+			        {"data":'userNickname'},
+			        {"data":'userCollege'},
+			        {"data":'userScore'},
+			        {"data":'userFoundtime',
+			        	render:function(data){
+			        		if(data==null){
+			        			return "";
+			        		}
+		        			return data.split("T")[0]+" "+data.split("T")[1].split(".")[0];
+			        	}
+			        },
+			       
+			    ]
+			
+		});
+};
 ////升级用户权限
 //function riseUserlevel(obj){
 //	var user=$(obj).attr("data-user-id");
