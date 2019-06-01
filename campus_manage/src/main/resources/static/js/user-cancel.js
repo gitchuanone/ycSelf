@@ -77,14 +77,6 @@ function  initUserBasicInfo(){
 	                }
 			    },
 			    columns: [　//这个是显示到界面上的个数据　格式为 {data:'显示的字段名'}
-//			    	{
-//                        "data" : null,
-//                        "orderable" : false,
-//                        "render" : function(data, type, full, meta) {
-//                            return '<input type="checkbox" value="'
-//                                    + $(data).parents("tr").find("td:eq(4)").html() + '" />';
-//                        }
-//                    },
 			        {"data":'userName'},
 			        {"data":'userNickname',
 			        	"orderable" : false
@@ -118,7 +110,10 @@ function removeUserByUserId(obj){
 		data: {"userId":parseInt(user)},
 		type:"POST",
 		success: function(result){
-			if(result.status=="true"){  alert("操作成功!!!");  };
+			if(result.status=="true"){  
+				alert("操作成功!!!");
+				window.location.reload();
+			};
 			if(result.status=="error"){  alert(result.msg);  };
 		},
 		error: function(){   alert("操作失败!!!");   }

@@ -5,6 +5,14 @@ $(function(){
 	//获取用户等级
 	var level=$("#getUserLevel").val();
 	
+	//投票
+	$("#toupiao-submit").on('click',function(){
+		var A=confirm("是否提交?");
+		if(A){
+			alert("操作成功");
+		}
+	});
+	
 	//点击二维码签到
 //	$("#erweima-button").on('click',function(){
 //		if(level==0){
@@ -27,6 +35,7 @@ $(function(){
 	
 	//与会人员信息展示
 //	showAllHaveSignUerInfo();
+
 	
 });
 

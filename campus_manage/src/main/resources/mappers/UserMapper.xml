@@ -7,14 +7,19 @@
 		select * from user
 	</select>
 	
+	<!-- 根据用户id值查询用户信息 -->
+	<select id="showUserInfoByUserid" parameterType="Integer" resultType="User">
+		select * from user where user_id=#{userId}
+	</select>
+	
 	<!-- #提升用户等级 -->
 	<update id="upUserLevel"  parameterType="Integer">
-		update user set user_level=(user_level + '1' )  where user_id=#{userId}	
+		update user set user_level=(user_level + 1 )  where user_id=#{userId}	
 	</update>
 	
 	<!-- #降低用户等级 -->
 	<update id="downUserLevel"  parameterType="Integer">
-		update user set user_level=(user_level - '1' )  where user_id=#{userId}	
+		update user set user_level=(user_level - 1 )  where user_id=#{userId}	
 	</update>
 
 	<!-- #重置用户信息 -->

@@ -22,4 +22,7 @@ public interface UserManageService {
 	 void removeUserByUserId(Integer userId);
 	 /**注册新用户*/
 	 void saveNewUser(User user);
+	 
+	 /**根据用户id值查询用户信息*/
+	 User showUserInfoByUserid(Integer userId);
 }

@@ -26,7 +26,10 @@ $(function(){
 			url: "/manage/addNewManage",
 			data: param,
 			success: function(result){
-				if(result.status=="true"){  alert("操作成功!!!");  };
+				if(result.status=="true"){  
+					alert("操作成功!!!");
+					window.location.reload();
+				};
 				if(result.status=="error"){  alert(result.msg);  };
 			},
 			error: function(){   alert("操作失败!!!");   }

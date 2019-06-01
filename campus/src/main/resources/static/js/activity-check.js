@@ -86,10 +86,19 @@ function teacherCheckActivityResult(){
 			        		}
 			        	}
 			        },
+			        {"data": 'activityProcesstime',
+			        	render:function(data){
+			        		if(data!=null){
+			        			return data.split("T")[0]+" "+data.split("T")[1].split(".")[0];
+			        		}else{
+			        			return "";
+			        		}
+			        	}
+			        },
 			        {"data": 'activityPredjoin'},
 			        {"data":'activityApplystatus',
 			        	render:function(data){
-			        		if(data==0 || data==""){
+			        		if(data==0 || data==null){
 			        			return "未申请";
 			        		}else if(data==1){
 			        			return "审核中";

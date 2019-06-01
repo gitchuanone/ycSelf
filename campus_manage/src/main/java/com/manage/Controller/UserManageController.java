@@ -59,6 +59,10 @@ public class UserManageController {
 	@ResponseBody
 	public AjaxResult upUserLevel(Integer userId){
 		try {
+			User user=userMagService.showUserInfoByUserid(userId);
+			if(user.getUserLevel()==2) {
+				return AjaxResult.error("操作无效!");
+			}
 			userMagService.upUserLevel(userId);
 		} catch (Exception e) {
 			return AjaxResult.error("提升等级失败!!!");
@@ -72,6 +76,10 @@ public class UserManageController {
 	@ResponseBody
 	public AjaxResult downUserLevel(Integer userId){
 		try {
+			User user=userMagService.showUserInfoByUserid(userId);
+			if(user.getUserLevel()==0) {
+				return AjaxResult.error("操作无效!");
+			}
 			userMagService.downUserLevel(userId);
 		} catch (Exception e) {
 			return AjaxResult.error("降低等级失败!!!");

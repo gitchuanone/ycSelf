@@ -35,10 +35,10 @@
 		    and activity_applystatus=3 and (select DATE_ADD(activity_impltime,INTERVAL '14' day)) &gt; now()  
 	</select>
 	
-	<!-- #当天超过公布日期3天,且未超过预计时间,且活动未提前进行,结果展示 -->
+	<!-- #当天超过公布日期5天,且未超过预计时间,且活动未提前进行,结果展示 -->
 	<select id="showCheckEndResultActivity"  resultType="Activity">  
 		select * from activity where  activity_endtime is null  and  
-		    activity_predtime &gt; now() and (select DATE_ADD(activity_processtime,INTERVAL  '3' day)) &lt; now()
+		    activity_predtime &gt; now() and (select DATE_ADD(activity_processtime,INTERVAL  '5' day)) &lt; now()
 	</select>
 	
 	
@@ -54,8 +54,8 @@
 	 activityTheme activityOrgcollege activityOrganizer activityDescription activityPredtime  activityUsername
 	-->
 	<insert id="applyAdvanceActivityByUsername" parameterType="Activity">
-		insert into activity(activity_theme,activity_orgcollege,activity_organizer,activity_description,activity_predtime,activity_username,activity_processtime,activity_predjoin,activity_realjoin)  
-		  values(#{activityTheme},#{activityOrgcollege},#{activityOrganizer},#{activityDescription},#{activityPredtime},#{activityUsername},now(),0,0)  
+		insert into activity(activity_theme,activity_orgcollege,activity_organizer,activity_description,activity_predtime,activity_username,activity_processtime,activity_predjoin,activity_realjoin,activity_applystatus)  
+		  values(#{activityTheme},#{activityOrgcollege},#{activityOrganizer},#{activityDescription},#{activityPredtime},#{activityUsername},now(),0,0,0)  
 	</insert>
 	
 	<!-- 自己参与的预参与申请信息展示 -->
@@ -140,7 +140,8 @@
 		<!-- #展示教师执行过的审批 -->
 		<select id="teacherCheckActResultShow"  parameterType="String"  resultType="Activity">
 		select * from  activity  where activity_username in (select user_name from user where (user_level=1  or  user_level=2) and user_college=#{userCollege})  
-		   and  (activity_applystatus=2  or activity_applystatus=3 )
+		   and  (activity_applystatus=2  or activity_applystatus=3 )  
+		     and  (select DATE_ADD(activity_processtime,INTERVAL '5' day)) &gt; now()
 		</select>
 		
 	

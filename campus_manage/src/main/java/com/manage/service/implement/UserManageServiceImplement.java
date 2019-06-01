@@ -61,4 +61,9 @@ public class UserManageServiceImplement implements UserManageService {
 		
 	}
 
+	@Override
+	public User showUserInfoByUserid(Integer userId) {
+		return  userDao.showUserInfoByUserid(userId);
+	}
+
 }

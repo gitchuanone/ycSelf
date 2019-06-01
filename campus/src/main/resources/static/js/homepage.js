@@ -65,7 +65,7 @@ $(function(){
 			        {"data":'activityPredjoin'},
 			        {"data":'activityApplystatus',
 			        	render:function(data){
-			        		if(data==0 || data==""){
+			        		if(data==0 || data==null){
 			        			return "未申请";
 			        		}else if(data==1){
 			        			return "审核中";

@@ -21,8 +21,13 @@ function resetAllUserScore(){
 		url: "/user/resetAllUserScore",
 		type:"POST",
 		success: function(result){
-			if(result.status=="true"){  alert("操作成功!!!");  };
-			if(result.status=="error"){  alert(result.msg);  };
+			if(result.status=="true"){  
+				alert("操作成功!!!");
+				window.location.reload();
+			};
+			if(result.status=="error"){  
+				alert(result.msg);
+			};
 		},
 		error: function(){   alert("操作失败!!!");   }
 	});
@@ -119,12 +124,17 @@ function upUserLevel(obj){
 		data: {"userId":parseInt(user)},
 		type:"POST",
 		success: function(result){
-			if(result.status=="true"){  alert("操作成功!!!");  };
-			if(result.status=="error"){  alert(result.msg);  };
+			if(result.status=="true"){  
+				alert("操作成功!!!");
+				window.location.reload();
+			};
+			if(result.status=="error"){ 
+				alert(result.msg);  
+			};
 		},
 		error: function(){   alert("操作失败!!!");   }
 	});
-	$('#show-all-user').DataTable().ajax.reload();
+//	$('#show-all-user').DataTable().ajax.reload();
 };
 /**
  * 降低用户等级
@@ -144,7 +154,10 @@ function downUserLevel(obj){
 		data: {"userId":parseInt(user)},
 		type:"POST",
 		success: function(result){
-			if(result.status=="true"){  alert("操作成功!!!");  };
+			if(result.status=="true"){  
+				alert("操作成功!!!");  
+				window.location.reload();
+			};
 			if(result.status=="error"){  alert(result.msg);  };
 		},
 		error: function(){   alert("操作失败!!!");   }
@@ -163,7 +176,10 @@ function resetUserInfo(obj){
 		data: {"userId":parseInt(user)},
 		type:"POST",
 		success: function(result){
-			if(result.status=="true"){  alert("操作成功!!!");  };
+			if(result.status=="true"){  
+				alert("操作成功!!!"); 
+				window.location.reload();
+			};
 			if(result.status=="error"){  alert(result.msg);  };
 		},
 		error: function(){   alert("操作失败!!!");   }
