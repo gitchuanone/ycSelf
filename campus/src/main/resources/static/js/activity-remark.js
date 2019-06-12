@@ -10,6 +10,9 @@ $(function(){
 		getScoresByStarts($(this).attr("data-param"));
 	});
 	
+	
+	
+	
 });
 
 /**

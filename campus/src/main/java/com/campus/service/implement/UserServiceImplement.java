@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.campus.dao.UserDao;
+import com.campus.model.Activity;
 import com.campus.model.User;
 import com.campus.service.UserService;
 @Service
@@ -65,6 +66,11 @@ public class UserServiceImplement implements UserService{
 	@Override
 	public void downUserLevel(Integer userId) {
 		userDao.downUserLevel(userId);
+	}
+
+	@Override
+	public List<Activity> showWaitJoinActivity(Integer userId2) {
+		return userDao.showWaitJoinActivity(userId2);
 	}
 
 }

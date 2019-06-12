@@ -2,6 +2,8 @@ package com.campus.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.campus.model.ActFile;
 import com.campus.model.Activity;
 
@@ -51,7 +53,14 @@ public interface ActivityService {
 	void modifyActivityfileInfoByActivityId(ActFile actfile);
 	/**#申请文件上传后,将名称存入活动表中*/
 	void modifyApplyFilenameWhenUploadFile(Activity activity);
-		
+	
+	//=========已通过活动地址的添加=============
+	/**#展示可添加活动地址的活动;  自己申请被通过;还未进行的活动 */
+	List<Activity> showCouldAddActivityAddr(String activityUsername);
+	/**#通过活动id修改活动地址 */
+	void addActivityAddr(@Param("activityPlace") String activityPlace,@Param("activityId")Integer activityId );
+	
+	
 	
 	//===================审核=====================
 	/**#审核员审查自己院里管理员申请的活动,结果集展示*/

@@ -52,7 +52,7 @@
 	  
 	<!-- #签到成功,活动实际参与人数加一 -->
 	<update id="modifyActivityRealjoinAddOne" parameterType="Integer" >
-		update activity set activity_realjoin=(activity_realjoin+1) where activity_id=#{activityId}  
+		update activity set activity_realjoin=ifnull(activity_realjoin,0) +1  where activity_id=#{activityId}  
 	</update>
 	  
 	  

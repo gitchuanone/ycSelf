@@ -111,7 +111,17 @@
 	
 	
 	
+	<!-- //////////活动通过地址添加////////// -->
+	<!-- #展示可添加活动地址的活动;  自己申请被通过;还未进行的活动 -->
+	<select id="showCouldAddActivityAddr" parameterType="String"  resultType="Activity">
+		select * from activity where activity_applystatus=3 and activity_endtime is null and 
+		     activity_username=#{activityUsername} 
+	</select>
 	
+	<!-- #通过活动id修改活动地址 -->
+	<update id="addActivityAddr"  >
+		update activity set activity_place=#{activityPlace} where activity_id=#{activityId}
+	</update>
 	
 	
 	<!-- ===========================================审查=================================================== -->

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.campus.common.AjaxResult;
+import com.campus.model.Activity;
 import com.campus.model.College;
 import com.campus.model.User;
 import com.campus.service.CollegeService;
@@ -212,4 +213,21 @@ public class UserController {
 		}
 		return AjaxResult.oK();
 	}
+	
+	
+	//==============================
+	
+	/**
+	 * 展示自己待参加的活动详情;	/user/showWaitJoinActivity
+	 * @return
+	 */
+	@RequestMapping("showWaitJoinActivity")
+	@ResponseBody
+	public List<Activity>  showWaitJoinActivity(HttpSession session){
+		User user=(User) session.getAttribute("user");
+		return  userService.showWaitJoinActivity(user.getUserId());
+	}
+	
+	
+	
 }

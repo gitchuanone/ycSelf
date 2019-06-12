@@ -210,4 +210,30 @@ public class ActivityApplyController {
 	}
 	
 	
+	/**
+	 * 可添加活动地址的活动列表;	/activity-apply/showCouldAddActivityAddr
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("showCouldAddActivityAddr")
+	@ResponseBody
+	public List<Activity> showCouldAddActivityAddr(HttpSession session){
+		//获取用户账号
+		User user=(User) session.getAttribute("user");
+		String activityUsername=user.getUserName();
+		List<Activity> list=actService.showCouldAddActivityAddr(activityUsername);
+		return list;
+	}
+	
+//	/activity-apply/addActivityAddrByActid
+	@RequestMapping("addActivityAddrByActid")
+	@ResponseBody
+	public AjaxResult  addActivityAddrByActid(String activityPlace,Integer activityId) {
+		try {
+			actService.addActivityAddr(activityPlace, activityId);
+		} catch (Exception e) {
+			return AjaxResult.error();
+		}
+		return AjaxResult.oK();
+	}
 }

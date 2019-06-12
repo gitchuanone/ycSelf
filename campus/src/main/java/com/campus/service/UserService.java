@@ -3,6 +3,7 @@ package com.campus.service;
 
 import java.util.List;
 
+import com.campus.model.Activity;
 import com.campus.model.User;
 
 public interface UserService {
@@ -27,5 +28,9 @@ public interface UserService {
 	void riseUserlevel(Integer userId);
 	/**#降低用户等级*/
 	void downUserLevel(Integer userId);
+	
+	//===============
+	/** #展示自己待参加活动详情 */
+	List<Activity> showWaitJoinActivity(Integer userId2);
 	
 }

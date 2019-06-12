@@ -51,4 +51,14 @@
       <update id="downUserLevel"  parameterType="Integer">
 			update user set user_level=(user_level-1)  where user_id=#{UserId}
       </update>
+      
+      
+      <!--=================  -->
+      <!-- #展示自己待参加活动详情 -->
+      <select id="showWaitJoinActivity"  resultType="Activity">
+		select * from activity where activity_id in  (  
+		     select act_id2 from act_user where user_id2=#{userId2}  and  user_endjoin='1' 
+		 )  and  activity_endtime is null  and activity_applystatus='3'
+      </select>
+      
 </mapper>

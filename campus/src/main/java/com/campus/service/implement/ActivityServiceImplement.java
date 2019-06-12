@@ -126,6 +126,15 @@ public class ActivityServiceImplement implements ActivityService {
 		activityDao.modifyApplyFilenameWhenUploadFile(activity);
 		
 	}
+	@Override
+	public List<Activity> showCouldAddActivityAddr(String activityUsername) {
+		List<Activity> list=activityDao.showCouldAddActivityAddr(activityUsername);
+		return list;
+	}
+	@Override
+	public void addActivityAddr(String activityPlace, Integer activityId) {
+		activityDao.addActivityAddr(activityPlace, activityId);
+	}
 	
 
 
